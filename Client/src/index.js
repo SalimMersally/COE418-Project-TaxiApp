@@ -5,10 +5,16 @@ import App from "./App";
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 
 const colors = {
-  brand: {
-    900: "#1a365d",
-    800: "#153e75",
-    700: "#2a69ac",
+  black: "#252525",
+  Yellow: {
+    400: "#FFC000",
+  },
+  gray: {
+    400: "#C4C4C4",
+  },
+  button: {
+    500: "#C4C4C4",
+    700: "#FFC000",
   },
 };
 
