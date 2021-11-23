@@ -8,6 +8,9 @@ import Contact from "./components/Contact";
 import Dashboard from "./components/Dashboard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import LogIn from "./components/LogIn";
+import SignUpComp from "./components/SignUpComp";
+import SignUpUser from "./components/SignUpUser";
 
 function App() {
   return (
@@ -19,6 +22,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/LogIn" element={<LogIn />} />
+          <Route path="/SignUpCompany" element={<SignUpComp />} />
+          <Route path="/SignUpUser" element={<SignUpUser />} />
         </Routes>
         <Footer />
       </Router>

@@ -24,12 +24,28 @@ function Navbar() {
       </Center>
       <Spacer />
       <ButtonGroup bg="transparent" variant="link" colorScheme="button" mr="2">
-        <Button mr="2">HOME</Button>
-        <Button mr="2">ABOUT</Button>
-        <Button mr="2">CONTACT</Button>
-        <Button mr="2">LOGIN</Button>
+        <Button as="a" href="/" mr="2 ">
+          HOME
+        </Button>
+        <Button as="a" href="/about" mr="2">
+          ABOUT
+        </Button>
+        <Button as="a" href="/contact" mr="2">
+          CONTACT
+        </Button>
+        <Button as="a" href="/login" mr="2">
+          LOGIN
+        </Button>
       </ButtonGroup>
-      <Button borderRadius="full" mr="2" p="5" bg="yellow.400" color="black">
+      <Button
+        as="a"
+        href="/signup"
+        borderRadius="full"
+        mr="2"
+        p="5"
+        bg="yellow.400"
+        color="black"
+      >
         SIGN UP
       </Button>
     </Flex>
