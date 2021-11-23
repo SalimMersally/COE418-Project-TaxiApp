@@ -10,7 +10,15 @@ import {
 
 function Navbar() {
   return (
-    <Flex bg="black" pl="20" pr="4" py="4">
+    <Flex
+      as="header"
+      position="fixed"
+      w="100%"
+      bg="black"
+      pl="20"
+      pr="4"
+      py="4"
+    >
       <Center>
         <Text color="gray.400">Logo</Text>
       </Center>
