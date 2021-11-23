@@ -24,7 +24,7 @@ function Navbar() {
       </Center>
       <Spacer />
       <ButtonGroup bg="transparent" variant="link" colorScheme="button" mr="2">
-        <Button as="a" href="/" mr="2 ">
+        <Button as="a" href="/" mr="2">
           HOME
         </Button>
         <Button as="a" href="/about" mr="2">
