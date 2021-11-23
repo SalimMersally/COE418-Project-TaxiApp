@@ -82,7 +82,7 @@ function Services() {
 function Service(props) {
   let { src, title, text } = props;
   return (
-    <Box w="20%" py="10">
+    <Box w="22%" py="10">
       <Flex direction="column" h="100%">
         <Center>
           <Image src={src} />
