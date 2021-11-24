@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import LogIn from "./components/LogIn";
 import SignUpComp from "./components/SignUpComp";
 import SignUpUser from "./components/SignUpUser";
+import SignUp from "./components/SignUp";
 
 function App() {
   return (
@@ -23,8 +24,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/LogIn" element={<LogIn />} />
+          <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignUpCompany" element={<SignUpComp />} />
-          <Route path="/SignUpUser" element={<SignUpUser />} />
+          <Route path="/SignUpUser" element={<SignUpComp />} />
         </Routes>
         <Footer />
       </Router>
