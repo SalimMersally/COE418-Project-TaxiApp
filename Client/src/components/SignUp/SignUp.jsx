@@ -12,7 +12,7 @@ function SignUp() {
       <Flex align="center" h="100%" justifyContent="center">
         <Flex w="40%" justifyContent="center" direction="column" pl="14">
           <Image src={driver} w={48} py="14" />
-          <Flex as="a" href="/SignUpCompany">
+          <Flex as="a" href="/SignUp/Company">
             <Text
               fontSize="2xl"
               fontWeight="700"
@@ -36,7 +36,7 @@ function SignUp() {
         </Flex>
         <Flex w="35%" justifyContent="center" direction="column" pl="14">
           <Image src={passenger} w={48} py="14" />
-          <Flex as="a" href="/SignUpCompany">
+          <Flex as="a" href="/SignUp/user">
             <Text
               fontSize="2xl"
               fontWeight="700"

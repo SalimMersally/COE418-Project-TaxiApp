@@ -15,8 +15,10 @@ import React, { useRef } from "react";
 import road from "./../../assets/road.jpg";
 
 function SignUpComp() {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
+  const [show1, setShow1] = React.useState(false);
+  const [show2, setShow2] = React.useState(false);
+  const handleClick1 = () => setShow1(!show1);
+  const handleClick2 = () => setShow2(!show2);
 
   const compNameRef = useRef();
   const emailRef = useRef();
@@ -54,7 +56,7 @@ function SignUpComp() {
         bg="white"
       >
         <Text fontFamily="roboto" fontSize="2xl" fontWeight="800" my="3">
-          Sign Up now
+          Sign up now
         </Text>
         <Input
           placeholder="Company Name"
@@ -90,28 +92,32 @@ function SignUpComp() {
           <Input
             pr="4.5rem"
             bg="gray.300"
-            type={show ? "text" : "password"}
+            type={show1 ? "text" : "password"}
             placeholder="Enter password here"
             borderRadius="0"
             ref={passwordRef}
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size="sm" onClick={handleClick} bg="gray.300">
-              {show ? "Hide" : "Show"}
+            <Button h="1.75rem" size="sm" onClick={handleClick1} bg="gray.300">
+              {show1 ? "Hide" : "Show"}
             </Button>
           </InputRightElement>
         </InputGroup>
-        <Input
-          placeholder="Confirm Password"
-          size="lg"
-          w="100%"
-          bg="gray.300"
-          borderRadius="0"
-          borderWidth="0"
-          my="3"
-          type="password"
-          ref={confirmPassRef}
-        />
+        <InputGroup size="lg" my="3">
+          <Input
+            pr="4.5rem"
+            bg="gray.300"
+            type={show2 ? "text" : "password"}
+            placeholder="Confirm password"
+            borderRadius="0"
+            ref={confirmPassRef}
+          />
+          <InputRightElement width="4.5rem">
+            <Button h="1.75rem" size="sm" onClick={handleClick2} bg="gray.300">
+              {show2 ? "Hide" : "Show"}
+            </Button>
+          </InputRightElement>
+        </InputGroup>
         <Input
           placeholder="Date of Establishment"
           size="lg"
@@ -125,6 +131,7 @@ function SignUpComp() {
         />
         <Input
           placeholder="Brief description of you company"
+          size="lg"
           bg="gray.300"
           borderRadius="0"
           borderWidth="0"
@@ -137,6 +144,7 @@ function SignUpComp() {
           fontWeight="400"
           fontSize="sm"
           textAlign="left"
+          my="3"
         >
           By proceeding, I agree to LAU TAXI’s Terms of Use and acknowledge that
           I have read the Privacy Policy.
