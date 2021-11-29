@@ -13,6 +13,7 @@ function Navbar() {
     <Flex
       as="header"
       position="fixed"
+      zIndex="9999"
       w="100%"
       bg="black"
       pl="20"
@@ -45,6 +46,8 @@ function Navbar() {
         p="5"
         bg="yellow.400"
         color="black"
+        _hover={{ bg: "#FFC000", color: "black" }}
+        _active={{ bg: "#F4B700" }}
       >
         SIGN UP
       </Button>

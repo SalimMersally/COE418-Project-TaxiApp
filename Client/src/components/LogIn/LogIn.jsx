@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import {
   Container,
   Flex,
@@ -51,7 +51,6 @@ function LogIn() {
                 variant="outline"
                 borderRadius="0"
                 ref={emailRef}
-                pos="static"
               />
             </Box>
             <Box py="2">

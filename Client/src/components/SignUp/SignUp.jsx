@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Flex, Box, Spacer, Text, Image } from "@chakra-ui/react";
+import { Flex, Box, Text, Image } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 // Images
