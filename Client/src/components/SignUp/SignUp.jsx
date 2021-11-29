@@ -20,16 +20,7 @@ function SignUp() {
               px="1"
               color="yellow.400"
             >
-              SIGN UP
-            </Text>
-            <Text
-              fontSize="2xl"
-              fontWeight="700"
-              fontFamily="roboto"
-              px="1"
-              color="black"
-            >
-              as a driver
+              <span>SIGN UP</span> as a driver
             </Text>
             <ArrowForwardIcon w={8} h={8} color="yellow.400" pt="1" />
           </Flex>
@@ -44,16 +35,7 @@ function SignUp() {
               px="1"
               color="yellow.400"
             >
-              SIGN UP
-            </Text>
-            <Text
-              fontSize="2xl"
-              fontWeight="700"
-              fontFamily="roboto"
-              px="1"
-              color="black"
-            >
-              as a passenger
+              <span>SIGN UP</span> as a passenger
             </Text>
             <ArrowForwardIcon w={8} h={8} color="yellow.400" pt="1" />
           </Flex>

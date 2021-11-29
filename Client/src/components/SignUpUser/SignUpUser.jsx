@@ -157,8 +157,8 @@ function SignUpUser() {
           textAlign="left"
           my="3"
         >
-          By proceeding, I agree to LAU TAXI’s Terms of Use and acknowledge that
-          I have read the Privacy Policy.
+          By proceeding, I agree to LAU TAXI’s <span>Terms of Use</span> and
+          acknowledge that I have read the <span>Privacy Policy.</span>
         </Text>
         <Text
           fontFamily="roboto"
