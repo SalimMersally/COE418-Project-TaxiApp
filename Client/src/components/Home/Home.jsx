@@ -5,6 +5,7 @@ import { Image, Flex } from "@chakra-ui/react";
 import Services from "./Services";
 import Feedback from "./Feedback";
 import Companies from "./Companies";
+import FeedbackForm from "./FeedbackForm";
 
 // Images
 import img from "./../../assets/driver.jpg";
@@ -16,6 +17,7 @@ function Home() {
       <Services />
       <Companies />
       <Feedback />
+      <FeedbackForm />
     </Flex>
   );
 }
