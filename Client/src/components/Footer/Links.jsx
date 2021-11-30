@@ -28,7 +28,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; HOME
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -41,7 +41,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; CONTACT
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -54,7 +54,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; TOP COMPANIES
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -66,7 +66,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; LOG OUT
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
         </Box>
         <Box w="45%">
           <Box py="2">
@@ -81,7 +81,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; ABOUT
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -94,7 +94,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; SUBMIT FEEDBACK
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -107,7 +107,7 @@ function Links() {
               <span>ᐳ </span>&nbsp; SIGN UP
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
           <Box py="2">
             <Text
               fontSize="sm"
@@ -120,7 +120,7 @@ function Links() {
               <span>ᐳ</span>&nbsp; LOG IN
             </Text>
           </Box>
-          <hr />
+          <hr className="footer" />
         </Box>
       </Flex>
     </Box>

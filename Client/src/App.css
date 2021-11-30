@@ -6,8 +6,12 @@ span {
   color: #ffc000;
 }
 
-hr {
+hr.footer {
   border-top: 1px dotted #ededed;
+}
+
+hr.info {
+  border-top: 1px solid #ffc000;
 }
 
 a:hover {
