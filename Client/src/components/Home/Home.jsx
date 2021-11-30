@@ -6,6 +6,7 @@ import Services from "./Services";
 import Feedback from "./Feedback";
 import Companies from "./Companies";
 import FeedbackForm from "./FeedbackForm";
+import LogInUP from "./LogInUP";
 
 // Images
 import img from "./../../assets/driver.jpg";
@@ -18,6 +19,7 @@ function Home() {
       <Companies />
       <Feedback />
       <FeedbackForm />
+      <LogInUP />
     </Flex>
   );
 }
