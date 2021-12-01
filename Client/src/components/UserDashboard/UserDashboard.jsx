@@ -1,5 +1,5 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 // Components
 import Info from "./Info";
@@ -8,11 +8,13 @@ import BookingList from "./BookingsList";
 
 function UserDashboard() {
   return (
-    <Box h="100vh">
-      <Info />
+    <>
+      <Flex h="100vh">
+        <Info />
+        <BookingList />
+      </Flex>
       <CompaniesList />
-      <BookingList />
-    </Box>
+    </>
   );
 }
 
