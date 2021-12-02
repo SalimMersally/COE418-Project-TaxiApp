@@ -4,10 +4,10 @@ import { Box, Flex, Image, Container, Text, Tooltip } from "@chakra-ui/react";
 
 // Components
 import BookingItem from "./BookingItem";
+import BookingModal from "./BookingModal";
 
 // Images
 import history from "./../../assets/history.png";
-import add from "./../../assets/add.png";
 
 function BookingsList() {
   const [isHistory, setIsHistory] = useState(false);
@@ -32,9 +32,7 @@ function BookingsList() {
               <Image src={history} w="8" h="8" mx="4" />
             </Box>
           </Tooltip>
-          <Tooltip hasArrow label="Add" bg="gray.400">
-            <Image src={add} w="8" h="8" />
-          </Tooltip>
+          <BookingModal />
         </Flex>
       </Flex>
       <hr className="info" my="2" />
