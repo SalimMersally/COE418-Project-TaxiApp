@@ -1,13 +1,15 @@
 import React from "react";
 import { Box, Flex, Image, Container, Text } from "@chakra-ui/react";
 
+// Components
+import InfoModal from "./InfoModal";
+
 // Images
 import userProfile from "./../../assets/userProfile.png";
 import name from "./../../assets/name.png";
 import emailPic from "./../../assets/email.png";
 import phone from "./../../assets/phone.png";
 import logout from "./../../assets/logout.png";
-import edit from "./../../assets/edit.png";
 
 function Info() {
   const fName = "FName";
@@ -20,7 +22,7 @@ function Info() {
     <Box w="25%" bg="black" alignSelf="flex-stretch" py="10">
       <Container maxW="container.sm">
         <Flex direction="column" justifyContent="center" w="100%">
-          <Image src={edit} w="4" h="4" alignSelf="flex-end" mr="6" />
+          <InfoModal />
           <Image src={userProfile} w="50%" alignSelf="center" py="2" />
           <Text
             fontSize="xl"
