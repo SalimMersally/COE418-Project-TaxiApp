@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Box, Flex, Image, Container, Text, Tooltip } from "@chakra-ui/react";
 
 // Components
@@ -12,38 +13,35 @@ function BookingsList() {
   const [isHistory, setIsHistory] = useState(false);
 
   return (
-    <Box w="75%" h="100%">
-      <Box h="12%"></Box>
-      <Container maxW="container.lg" px="10" h="85%">
-        <Flex justifyContent="space-between" alignItems="center" h="15%">
-          <Text
-            fontFamily="roboto"
-            fontSize="3xl"
-            fontWeight="700"
-            textAlign="left"
-          >
-            Bookings
-          </Text>
-          <Flex alignItems="center" py="2">
-            <Tooltip hasArrow label="History" bg="gray.400">
-              <Box
-                as="button"
-                onClick={() => setIsHistory((current) => !current)}
-              >
-                <Image src={history} w="10" h="10" mx="4" />
-              </Box>
-            </Tooltip>
-            <Tooltip hasArrow label="Add" bg="gray.400">
-              <Image src={add} w="10" h="10" />
-            </Tooltip>
-          </Flex>
+    <Container maxW="container.lg" px="10" h="90vh" pt="4">
+      <Flex justifyContent="space-between" alignItems="center" pt="2">
+        <Text
+          fontFamily="roboto"
+          fontSize="3xl"
+          fontWeight="700"
+          textAlign="left"
+        >
+          Bookings
+        </Text>
+        <Flex alignItems="center">
+          <Tooltip hasArrow label="History" bg="gray.400">
+            <Box
+              as="button"
+              onClick={() => setIsHistory((current) => !current)}
+            >
+              <Image src={history} w="8" h="8" mx="4" />
+            </Box>
+          </Tooltip>
+          <Tooltip hasArrow label="Add" bg="gray.400">
+            <Image src={add} w="8" h="8" />
+          </Tooltip>
         </Flex>
-        <hr className="info" my="2" />
-        <Box overflowY="auto" h="85%">
-          {isHistory ? <HistoryList /> : <CurrentList />}
-        </Box>
-      </Container>
-    </Box>
+      </Flex>
+      <hr className="info" my="2" />
+      <Box overflowY="auto" h="85%" my="2">
+        {isHistory ? <HistoryList /> : <CurrentList />}
+      </Box>
+    </Container>
   );
 }
 
@@ -158,9 +156,21 @@ function HistoryList() {
       carNb: "B 999 999",
     },
   ];
-  return bookingsHistory.map((item) => (
-    <BookingItem info={item} key={item.id} isHistory={true} />
-  ));
+  let opacity = 1;
+  return bookingsHistory.map((item) => {
+    opacity = opacity - 0.05;
+    if (opacity < 0.5) {
+      opacity = 0.5;
+    }
+    return (
+      <BookingItem
+        info={item}
+        key={item.id}
+        isHistory={true}
+        opacity={opacity}
+      />
+    );
+  });
 }
 
 function CurrentList() {
@@ -238,9 +248,21 @@ function CurrentList() {
       carNb: "B 999 999",
     },
   ];
-  return bookings.map((item) => (
-    <BookingItem info={item} key={item.id} isHistory={false} />
-  ));
+  let opacity = 1;
+  return bookings.map((item) => {
+    opacity = opacity - 0.05;
+    if (opacity < 0.5) {
+      opacity = 0.5;
+    }
+    return (
+      <BookingItem
+        info={item}
+        key={item.id}
+        isHistory={false}
+        opacity={opacity}
+      />
+    );
+  });
 }
 
 export default BookingsList;

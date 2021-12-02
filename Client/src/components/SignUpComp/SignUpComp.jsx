@@ -30,8 +30,8 @@ function SignUpComp() {
 
   return (
     <Box>
-      <Container maxW="container.xl" textAlign="left">
-        <Box h="30vh" w="100%"></Box>
+      <Container maxW="container.xl" textAlign="left" px="10">
+        <Box h="15vh" w="100%"></Box>
         <Box mx="10">
           <Text fontFamily="roboto" fontSize="5xl" fontWeight="700" my="4">
             Register Your Company
@@ -41,9 +41,8 @@ function SignUpComp() {
           </Text>
         </Box>
         <Box h="10vh" w="100%"></Box>
-        <Image src={road} w="100%" />
+        <Image src={road} w="100%" mb="14" />
       </Container>
-
       <Flex
         w="40vw"
         p="10"

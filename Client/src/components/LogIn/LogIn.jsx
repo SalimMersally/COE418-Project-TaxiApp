@@ -19,7 +19,7 @@ function LogIn() {
   const passwordRef = useRef();
 
   return (
-    <Box h="100vh" bg="gray.300">
+    <Box h="90vh" bg="gray.300">
       <Container maxW="container.md" h="100%">
         <Flex align="center" h="100%" w="100%">
           <Box w="100%">
@@ -29,7 +29,7 @@ function LogIn() {
               color="yellow.400"
               fontSize="4xl"
               textAlign="left"
-              py="4"
+              pb="4"
             >
               Log In
             </Text>
@@ -89,9 +89,9 @@ function LogIn() {
               rightIcon={<ArrowForwardIcon />}
               bg="yellow.400"
               variant="outline"
-              color="black"
+              color="white"
               fontFamily="roboto"
-              fontWeight="400"
+              fontWeight="700"
               fontSize="xl"
               w="100%"
               display="flex"
@@ -99,11 +99,12 @@ function LogIn() {
               mt="4"
               size="lg"
               borderRadius="0"
-              _hover={{ bg: "#FFC000" }}
+              _hover={{ bg: "#FFC000", color: "black" }}
+              _active={{ bg: "#F4B700" }}
             >
               LOG IN
             </Button>
-            <Flex>
+            <Flex mt="1">
               <Text
                 fontFamily="roboto"
                 fontWeight="400"

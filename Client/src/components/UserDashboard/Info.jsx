@@ -6,7 +6,6 @@ import userProfile from "./../../assets/userProfile.png";
 import name from "./../../assets/name.png";
 import emailPic from "./../../assets/email.png";
 import phone from "./../../assets/phone.png";
-import location from "./../../assets/location.png";
 import logout from "./../../assets/logout.png";
 import edit from "./../../assets/edit.png";
 
@@ -16,11 +15,9 @@ function Info() {
   const username = "UserName";
   const phoneNB = "+961 99 999 999";
   const email = "fname.lname@gmail.com";
-  const addres = "Byblos, Blat, LAU";
 
   return (
-    <Box w="25%" bg="black" h="100%">
-      <Box h="15%"></Box>
+    <Box w="25%" bg="black" alignSelf="flex-stretch" py="10">
       <Container maxW="container.sm">
         <Flex direction="column" justifyContent="center" w="100%">
           <Image src={edit} w="4" h="4" alignSelf="flex-end" mr="6" />
@@ -84,22 +81,6 @@ function Info() {
           </Box>
         </Flex>
         <Flex mx="6" pt="4">
-          <Image src={location} w="4" h="4" mr="4" />
-          <Box w="85%">
-            <Text
-              fontSize="md"
-              fontFamily="roboto"
-              fontWeight="400"
-              color="white"
-              textAlign="left"
-              pb="2"
-            >
-              {addres}
-            </Text>
-            <hr className="info" />
-          </Box>
-        </Flex>
-        <Flex mx="6" pt="4">
           <Image src={logout} w="4" h="4" mr="4" />
           <Box w="85%">
             <Text
@@ -110,7 +91,7 @@ function Info() {
               textAlign="left"
               pb="2"
             >
-              "LOG OUT"
+              LOG OUT
             </Text>
             <hr className="info" />
           </Box>
