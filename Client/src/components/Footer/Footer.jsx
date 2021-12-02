@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
 // Components
@@ -7,15 +8,21 @@ import Links from "./Links";
 import Info from "./Info";
 
 function Footer() {
+  const location = useLocation();
+
   return (
     <Box>
-      <Box bg="black" px="20" py="6">
-        <Flex justifyContent="space-between">
-          <Summary />
-          <Links />
-          <Info />
-        </Flex>
-      </Box>
+      {location.pathname === "/dashboard" ? (
+        <></>
+      ) : (
+        <Box bg="black" px="20" py="6">
+          <Flex justifyContent="space-between">
+            <Summary />
+            <Links />
+            <Info />
+          </Flex>
+        </Box>
+      )}
       <Box bg="gray.800">
         <Text
           fontFamily="roboto"

@@ -8,9 +8,9 @@ import passenger from "./../../assets/passenger.png";
 
 function SignUp() {
   return (
-    <Box h="100vh" bg="gray.300">
-      <Flex align="center" h="100%" justifyContent="center">
-        <Flex w="40%" justifyContent="center" direction="column" pl="14">
+    <Box h="90vh" bg="gray.300">
+      <Flex align="center" h="100%" justifyContent="space-around">
+        <Flex justifyContent="flex-start" direction="column" pl="14">
           <Image src={driver} w={48} py="14" />
           <Flex as="a" href="/SignUp/Company">
             <Text
@@ -25,7 +25,7 @@ function SignUp() {
             <ArrowForwardIcon w={8} h={8} color="yellow.400" pt="1" />
           </Flex>
         </Flex>
-        <Flex w="35%" justifyContent="center" direction="column" pl="14">
+        <Flex justifyContent="flex-start" direction="column" pl="14">
           <Image src={passenger} w={48} py="14" />
           <Flex as="a" href="/SignUp/user">
             <Text

@@ -16,23 +16,25 @@ function BookingItem(props) {
   const driverNb = props.info.driverNb;
   const carNb = props.info.carNb;
 
-  let bg;
+  let sx;
   if (props.isHistory) {
-    bg = "gray.300";
+    sx = `rgba(196, 196, 196, ${props.opacity})`;
   } else {
-    bg = "yellow.400";
+    sx = `rgba(255, 192, 0, ${props.opacity})`;
   }
 
   return (
     <Flex
       w="100%"
       justifyContent="space-between"
-      bg={bg}
       textAlign="left"
       p="4"
       my="2"
+      sx={{
+        backgroundColor: sx,
+      }}
     >
-      <Box w="20%">
+      <Box w="30%">
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
           From: {from}
         </Text>
