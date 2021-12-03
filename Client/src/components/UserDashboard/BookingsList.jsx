@@ -155,8 +155,9 @@ function HistoryList() {
     },
   ];
   let opacity = 1;
+  let decrement = 0.5 / bookingsHistory.length;
   return bookingsHistory.map((item) => {
-    opacity = opacity - 0.05;
+    opacity = opacity - decrement;
     if (opacity < 0.5) {
       opacity = 0.5;
     }
@@ -247,8 +248,9 @@ function CurrentList() {
     },
   ];
   let opacity = 1;
+  let decrement = 0.5 / bookings.length;
   return bookings.map((item) => {
-    opacity = opacity - 0.05;
+    opacity = opacity - decrement;
     if (opacity < 0.5) {
       opacity = 0.5;
     }
