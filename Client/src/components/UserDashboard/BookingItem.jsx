@@ -3,7 +3,9 @@ import { Box, Flex, Image, Text, Tooltip } from "@chakra-ui/react";
 
 // Images
 import editBlack from "./../../assets/editBlack.png";
-import close from "./../../assets/close.png";
+
+// Components
+import DeleteModal from "./DeleteModal";
 
 function BookingItem(props) {
   const from = props.info.from;
@@ -71,9 +73,7 @@ function BookingItem(props) {
         <Tooltip hasArrow label="Edit" bg="gray.400">
           <Image src={editBlack} w="5" h="5" mx="4" />
         </Tooltip>
-        <Tooltip hasArrow label="Delete" bg="gray.400">
-          <Image src={close} w="5" h="5" />
-        </Tooltip>
+        <DeleteModal />
       </Flex>
     </Flex>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Flex, Image, Container, Text } from "@chakra-ui/react";
+import { CloseButton } from "@chakra-ui/react";
 
 // Components
 import InfoModal from "./InfoModal";

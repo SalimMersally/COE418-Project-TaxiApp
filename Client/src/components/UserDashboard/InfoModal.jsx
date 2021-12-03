@@ -35,7 +35,7 @@ function InfoModal() {
         </Tooltip>
       </Box>
 
-      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+      <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent bg="yellow.400">
           <ModalHeader>
