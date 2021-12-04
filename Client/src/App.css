@@ -14,6 +14,10 @@ hr.info {
   border-top: 1px solid #ffc000;
 }
 
+hr.infoPoints {
+  border-top: 1px dotted #ffc000;
+}
+
 a:hover {
   color: #ffc000;
 }

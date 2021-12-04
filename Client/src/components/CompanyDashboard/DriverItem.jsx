@@ -59,7 +59,7 @@ function DriverItem(props) {
         </Box>
         <DeleteDriverModal />
       </Flex>
-      <hr className="info" />
+      <hr className="infoPoints" />
     </Box>
   );
 }
