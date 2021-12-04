@@ -6,6 +6,7 @@ import editBlack from "./../../assets/editBlack.png";
 
 // Components
 import DeleteModal from "./DeleteModal";
+import SendFeedbackModal from "./SendFeedbackModal";
 
 function BookingItem(props) {
   const from = props.info.from;
@@ -70,10 +71,16 @@ function BookingItem(props) {
         </Text>
       </Box>
       <Flex w="10%" justifyContent="flex-end" alignItems="center">
-        <Tooltip hasArrow label="Edit" bg="gray.400">
-          <Image src={editBlack} w="5" h="5" mx="4" />
-        </Tooltip>
-        <DeleteModal />
+        {props.isHistory ? (
+          <SendFeedbackModal />
+        ) : (
+          <>
+            <Tooltip hasArrow label="Edit" bg="gray.400">
+              <Image src={editBlack} w="5" h="5" mx="4" />
+            </Tooltip>
+            <DeleteModal />
+          </>
+        )}
       </Flex>
     </Flex>
   );
