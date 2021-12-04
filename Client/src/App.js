@@ -12,15 +12,21 @@ import LogIn from "./components/LogIn";
 import SignUpComp from "./components/SignUpComp";
 import SignUpUser from "./components/SignUpUser";
 import SignUp from "./components/SignUp";
+import CompanyDashboard from "./components/CompanyDashboard";
 
 function App() {
+  const isCompany = true;
+
   return (
     <div className="App">
       <Router>
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} exact />
-          <Route path="/dashboard" element={<UserDashboard />} />
+          <Route
+            path="/dashboard"
+            element={isCompany ? <CompanyDashboard /> : <UserDashboard />}
+          />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/LogIn" element={<LogIn />} />
