@@ -5,6 +5,7 @@ import { Flex, Box } from "@chakra-ui/react";
 import Info from "./Info";
 import BookingsList from "./BookingsList";
 import DriverList from "./DriverList";
+import CarList from "./CarList";
 
 function CompanyDashboard() {
   return (
@@ -15,6 +16,7 @@ function CompanyDashboard() {
           <BookingsList />
           <Flex>
             <DriverList />
+            <CarList />
           </Flex>
         </Box>
       </Flex>
