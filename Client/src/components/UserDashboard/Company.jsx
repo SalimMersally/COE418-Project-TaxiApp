@@ -115,6 +115,42 @@ function Company(props) {
                     color="white"
                     fontWeight="700"
                   >
+                    Mobile NB: &nbsp;
+                  </Text>
+                  <Text
+                    fontSize="md"
+                    fontFamily="roboto"
+                    color="white"
+                    fontWeight="400"
+                  >
+                    {props.mobileNB}
+                  </Text>
+                </Flex>
+                <Flex>
+                  <Text
+                    fontSize="lg"
+                    fontFamily="roboto"
+                    color="white"
+                    fontWeight="700"
+                  >
+                    Email: &nbsp;
+                  </Text>
+                  <Text
+                    fontSize="md"
+                    fontFamily="roboto"
+                    color="white"
+                    fontWeight="400"
+                  >
+                    {props.email}
+                  </Text>
+                </Flex>
+                <Flex>
+                  <Text
+                    fontSize="lg"
+                    fontFamily="roboto"
+                    color="white"
+                    fontWeight="700"
+                  >
                     Number of Drivers: &nbsp;
                   </Text>
                   <Text
@@ -144,7 +180,6 @@ function Company(props) {
                     15
                   </Text>
                 </Flex>
-
                 <Text
                   fontSize="lg"
                   fontFamily="roboto"
@@ -159,15 +194,7 @@ function Company(props) {
                   color="white"
                   fontWeight="400"
                 >
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                  ac consectetur ligula. Morbi suscipit, enim eu feugiat
-                  dapibus, risus risus fermentum nisi, quis convallis dui ante
-                  ac felis. Ut nec mattis sapien, eu porta sem. Nunc leo mi,
-                  rutrum quis urna id, pellentesque pellentesque nisi. Nullam
-                  tincidunt magna id dapibus congue. In at eros viverra,
-                  accumsan urna nec, posuere turpis. Nunc sed felis pulvinar,
-                  hendrerit diam luctus, vulputate purus. Ut sed risus vitae
-                  ipsum volutpat placerat.
+                  {props.description}
                 </Text>
               </Flex>
             </Flex>
