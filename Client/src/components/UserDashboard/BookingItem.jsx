@@ -9,15 +9,21 @@ import DeleteModal from "./DeleteModal";
 import SendFeedbackModal from "./SendFeedbackModal";
 
 function BookingItem(props) {
-  const from = props.info.from;
-  const to = props.info.to;
-  const time = props.info.time;
-  const compName = props.info.compName;
-  const driverName = props.info.driverName;
-  const carModel = props.info.carModel;
-  const compNb = props.info.compNb;
-  const driverNb = props.info.driverNb;
-  const carNb = props.info.carNb;
+  const from =
+    props.info.FCity + " " + props.info.FBuilding + "" + props.info.FStreet;
+  const to =
+    props.info.tCity + " " + props.info.tBuilding + "" + props.info.tStreet;
+  const time = props.info.Time;
+  const Date = props.info.Date.substring(0, 9);
+  const compName = props.info.company;
+  const driverName = props.info.firstName + " " + props.info.lastName;
+  const carModel = props.info.manifacturerCompany + " " + props.info.model;
+  const compNb = props.info.CNumber;
+  const driverNb = props.info.DNumber;
+  const carNb =
+    props.info.licenseChar + "" + props.info.licenseNB + " " + props.info.color;
+  const luggages = props.info.numberOfPackages;
+  const seats = props.info.nbOfSeat;
 
   let sx;
   if (props.isHistory) {
@@ -39,35 +45,44 @@ function BookingItem(props) {
     >
       <Box w="30%">
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          From: {from}
+          <b>From:</b> {from}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          To: {to}
+          <b>To:</b> {to}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Time: {time}
-        </Text>
-      </Box>
-      <Box w="30%">
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Company Name: {compName}
+          <b>Time:</b> {time}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Car Model: {carModel}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Driver Name: {driverName}
+          <b>Date:</b> {Date}
         </Text>
       </Box>
       <Box w="30%">
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Company Nb: {compNb}
+          <b>Company:</b> {compName}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Car Nb: {carNb}
+          <b>Car:</b> {carModel}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Driver Nb: {driverNb}
+          <b>Driver:</b> {driverName}
+        </Text>
+        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+          <b>Luggages:</b> {luggages}
+        </Text>
+      </Box>
+      <Box w="30%">
+        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+          <b>Company Nb:</b> {compNb}
+        </Text>
+        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+          <b>Car Nb:</b> {carNb}
+        </Text>
+        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+          <b>Driver Nb:</b> {driverNb}
+        </Text>
+        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+          <b>Seats:</b> {seats}
         </Text>
       </Box>
       <Flex w="10%" justifyContent="flex-end" alignItems="center">

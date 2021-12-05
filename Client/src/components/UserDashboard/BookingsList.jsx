@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Flex, Image, Container, Text, Tooltip } from "@chakra-ui/react";
+import axios from "axios";
+import { AppContext } from "../../StateProvider";
 
 // Components
 import BookingItem from "./BookingItem";
@@ -11,6 +12,35 @@ import history from "./../../assets/history.png";
 
 function BookingsList() {
   const [isHistory, setIsHistory] = useState(false);
+  const [currentList, setCurrentList] = useState([]);
+  const [historyList, setHistoryList] = useState([]);
+  const [currentDecrement, setCurrentDecrement] = useState(0);
+  const [historyDecrement, setHistoryDecrement] = useState(0);
+  const [state] = useContext(AppContext);
+
+  let opacity = 1;
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/api/trip/current", {
+        clientID: state.user[0].clientID,
+      })
+      .then((res) => {
+        setCurrentList(res.data);
+        setCurrentDecrement(0.5 / res.data.length);
+      });
+  }, [state]);
+
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/api/trip/past", {
+        clientID: state.user[0].clientID,
+      })
+      .then((res) => {
+        setHistoryList(res.data);
+        setHistoryDecrement(0.5 / res.data.length);
+      });
+  }, [state]);
 
   return (
     <Container maxW="container.lg" px="10" h="90vh" pt="4">
@@ -37,232 +67,38 @@ function BookingsList() {
       </Flex>
       <hr className="info" my="2" />
       <Box overflowY="auto" h="85%" my="2">
-        {isHistory ? <HistoryList /> : <CurrentList />}
+        {isHistory
+          ? historyList.map((item) => {
+              opacity = opacity - historyDecrement;
+              if (opacity < 0.5) {
+                opacity = 0.5;
+              }
+              return (
+                <BookingItem
+                  info={item}
+                  key={item.tripID}
+                  isHistory={true}
+                  opacity={opacity}
+                />
+              );
+            })
+          : currentList.map((item) => {
+              opacity = opacity - currentDecrement;
+              if (opacity < 0.5) {
+                opacity = 0.5;
+              }
+              return (
+                <BookingItem
+                  info={item}
+                  key={item.tripID}
+                  isHistory={false}
+                  opacity={opacity}
+                />
+              );
+            })}
       </Box>
     </Container>
   );
-}
-
-function HistoryList() {
-  const bookingsHistory = [
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/11/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-  ];
-  let opacity = 1;
-  let decrement = 0.5 / bookingsHistory.length;
-  return bookingsHistory.map((item) => {
-    opacity = opacity - decrement;
-    if (opacity < 0.5) {
-      opacity = 0.5;
-    }
-    return (
-      <BookingItem
-        info={item}
-        key={item.id}
-        isHistory={true}
-        opacity={opacity}
-      />
-    );
-  });
-}
-
-function CurrentList() {
-  const bookings = [
-    {
-      id: "1",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "2",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "3",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "4",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "5",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-    {
-      id: "6",
-      from: "Beirut",
-      to: "Byblos",
-      time: "5/12/2021 10:15 AM",
-      compName: "Hey Taxi",
-      driverName: "Salim Mersally",
-      carModel: "Kia Cerato",
-      compNb: "+961 99 999 999",
-      driverNb: "+961 99 999 999",
-      carNb: "B 999 999",
-    },
-  ];
-  let opacity = 1;
-  let decrement = 0.5 / bookings.length;
-  return bookings.map((item) => {
-    opacity = opacity - decrement;
-    if (opacity < 0.5) {
-      opacity = 0.5;
-    }
-    return (
-      <BookingItem
-        info={item}
-        key={item.id}
-        isHistory={false}
-        opacity={opacity}
-      />
-    );
-  });
 }
 
 export default BookingsList;
