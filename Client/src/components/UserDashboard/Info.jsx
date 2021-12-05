@@ -41,7 +41,11 @@ function Info() {
     <Box w="25%" bg="black" alignSelf="flex-stretch" py="10">
       <Container maxW="container.sm">
         <Flex direction="column" justifyContent="center" w="100%">
-          <InfoModal />
+          <InfoModal
+            clientID={state.user[0].clientID}
+            password={state.user[0].password}
+            email={email}
+          />
           <Image src={userProfile} w="50%" alignSelf="center" py="2" />
           <Text
             fontSize="xl"
