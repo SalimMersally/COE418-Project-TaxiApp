@@ -1,3 +1,4 @@
+import React, { useRef, useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -9,14 +10,14 @@ import {
   Image,
   Container,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import axios from "axios";
 
 //Images
 import road from "./../../assets/road.jpg";
 
 function SignUpUser() {
-  const [show1, setShow1] = React.useState(false);
-  const [show2, setShow2] = React.useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClick1 = () => setShow1(!show1);
   const handleClick2 = () => setShow2(!show2);
 
@@ -26,8 +27,17 @@ function SignUpUser() {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const confirmPassRef = useRef();
-  const dateRef = useRef();
   const phonesRef = useRef();
+
+  function submitUser() {
+    axios.post("http://localhost:3001/api/user/signup", {
+      firstName: fNameRef.current.value,
+      lastName: lNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      mobileNB: phonesRef.current.value,
+    });
+  }
 
   return (
     <Box>
@@ -68,6 +78,7 @@ function SignUpUser() {
             borderRadius="0"
             borderWidth="0"
             ref={fNameRef}
+            required
           />
           <Input
             placeholder="Last Name"
@@ -77,6 +88,7 @@ function SignUpUser() {
             borderRadius="0"
             borderWidth="0"
             ref={lNameRef}
+            required
           />
         </Flex>
         <Input
@@ -88,6 +100,7 @@ function SignUpUser() {
           borderWidth="0"
           my="3"
           ref={emailRef}
+          required
         />
         <Input
           placeholder="Choose a username"
@@ -98,6 +111,7 @@ function SignUpUser() {
           borderWidth="0"
           my="3"
           ref={usernameRef}
+          required
         />
         <InputGroup size="lg" my="3">
           <Input
@@ -107,6 +121,7 @@ function SignUpUser() {
             placeholder="Enter password here"
             borderRadius="0"
             ref={passwordRef}
+            required
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick1} bg="gray.300">
@@ -122,6 +137,7 @@ function SignUpUser() {
             placeholder="Confirm password"
             borderRadius="0"
             ref={confirmPassRef}
+            required
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick2} bg="gray.300">
@@ -129,17 +145,6 @@ function SignUpUser() {
             </Button>
           </InputRightElement>
         </InputGroup>
-        <Input
-          placeholder="Date of Birth"
-          size="lg"
-          w="100%"
-          bg="gray.300"
-          borderRadius="0"
-          borderWidth="0"
-          my="3"
-          type="date"
-          ref={dateRef}
-        />
         <Input
           placeholder="Phone number"
           size="lg"
@@ -149,6 +154,7 @@ function SignUpUser() {
           my="3"
           type="number"
           ref={phonesRef}
+          required
         />
         <Text
           fontFamily="roboto"
@@ -182,6 +188,8 @@ function SignUpUser() {
             type="submit"
             _hover={{ bg: "#FFC000", color: "black" }}
             _active={{ bg: "#F4B700" }}
+            type="submit"
+            onClick={submitUser}
           >
             SIGN UP
           </Button>

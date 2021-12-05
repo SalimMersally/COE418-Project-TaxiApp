@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useContext } from "react";
 import {
   Container,
   Flex,
@@ -8,15 +8,50 @@ import {
   InputGroup,
   InputRightElement,
   Button,
+  Stack,
+  Radio,
+  RadioGroup,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { AppContext } from "../../StateProvider";
+import axios from "axios";
 
 function LogIn() {
-  const [show, setShow] = React.useState(false);
+  const [, dispatch] = useContext(AppContext);
+  const [show, setShow] = useState(false);
+  const [type, setType] = useState("client");
   const handleClick = () => setShow(!show);
 
   const emailRef = useRef();
   const passwordRef = useRef();
+  const [error, setError] = useState("");
+
+  function submit() {
+    let url = "http://localhost:3001/";
+    if (type === "client") {
+      url = url + "api/user/login";
+    } else {
+      url = url + "api/company/login";
+    }
+    axios
+      .post(url, {
+        email: emailRef.current.value,
+        password: passwordRef.current.value,
+      })
+      .then((res) => {
+        if (typeof res.data === "string") {
+          setError(res.data);
+        } else {
+          if (type === "client") {
+            dispatch({ type: "SET_USER", value: res.data });
+          } else {
+            dispatch({ type: "SET_STATE", value: true });
+            dispatch({ type: "SET_COMPANY", value: res.data });
+          }
+          setError("");
+        }
+      });
+  }
 
   return (
     <Box h="90vh" bg="gray.300">
@@ -32,6 +67,16 @@ function LogIn() {
               pb="4"
             >
               Log In
+            </Text>
+            <Text
+              fontFamily="roboto"
+              fontWeight="400"
+              color="red"
+              fontSize="lg"
+              textAlign="left"
+              pb="2"
+            >
+              {error}
             </Text>
             <Box py="2">
               <Text
@@ -85,6 +130,12 @@ function LogIn() {
                 </InputRightElement>
               </InputGroup>
             </Box>
+            <RadioGroup onChange={setType} value={type}>
+              <Stack direction="row">
+                <Radio value="client">Client</Radio>
+                <Radio value="company">Company</Radio>
+              </Stack>
+            </RadioGroup>
             <Button
               rightIcon={<ArrowForwardIcon />}
               bg="yellow.400"
@@ -101,6 +152,7 @@ function LogIn() {
               borderRadius="0"
               _hover={{ bg: "#FFC000", color: "black" }}
               _active={{ bg: "#F4B700" }}
+              onClick={submit}
             >
               LOG IN
             </Button>

@@ -1,5 +1,7 @@
+import React, { useContext, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AppContext } from "./StateProvider";
 
 // Components
 import Home from "./components/Home";
@@ -15,7 +17,12 @@ import SignUp from "./components/SignUp";
 import CompanyDashboard from "./components/CompanyDashboard";
 
 function App() {
-  const isCompany = true;
+  const [state] = useContext(AppContext);
+  const [isCompany, setIsCompany] = useState(false);
+
+  useEffect(() => {
+    setIsCompany(state.isCompany);
+  }, [state]);
 
   return (
     <div className="App">

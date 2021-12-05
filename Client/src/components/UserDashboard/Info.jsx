@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Flex, Image, Container, Text } from "@chakra-ui/react";
-import { CloseButton } from "@chakra-ui/react";
+import { AppContext } from "../../StateProvider";
+import { Link } from "react-router-dom";
 
 // Components
 import InfoModal from "./InfoModal";
@@ -13,11 +14,28 @@ import phone from "./../../assets/phone.png";
 import logout from "./../../assets/logout.png";
 
 function Info() {
-  const fName = "FName";
-  const lName = "LName";
-  const username = "UserName";
-  const phoneNB = "+961 99 999 999";
-  const email = "fname.lname@gmail.com";
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [username, setUserName] = useState("");
+  const [phoneNB, setPhoneNB] = useState("");
+  const [email, setEmail] = useState("");
+
+  const [state, dispatch] = useContext(AppContext);
+
+  useEffect(() => {
+    if (state.user[0]) {
+      setFName(state.user[0].firsstName);
+      setLName(state.user[0].lastName);
+      setPhoneNB(state.user[0].mobileNB);
+      setUserName(state.user[0].clientID);
+      setEmail(state.user[0].email);
+    }
+  }, [state]);
+
+  function logOut() {
+    dispatch({ type: "SET_USER", value: {} });
+    dispatch({ type: "SET_LOG", value: false });
+  }
 
   return (
     <Box w="25%" bg="black" alignSelf="flex-stretch" py="10">
@@ -94,7 +112,9 @@ function Info() {
               textAlign="left"
               pb="2"
             >
-              LOG OUT
+              <Link to="/" exact onClick={logOut}>
+                LOG OUT
+              </Link>
             </Text>
             <hr className="info" />
           </Box>
