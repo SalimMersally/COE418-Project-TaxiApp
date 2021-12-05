@@ -6,6 +6,7 @@ const mysql = require("mysql");
 //Routes
 const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
+const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -20,6 +21,15 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.post("/api/user/edit", (req, res) => {
+  console.log("receivng");
+  editUserInfo(req, res, db);
+});
+
+app.post("/api/company/edit", (req, res) => {
+  editCompanyInfo(req, res, db);
+});
 
 app.post("/api/user/signup", (req, res) => {
   signUpUser(req, res, db);
