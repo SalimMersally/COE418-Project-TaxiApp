@@ -6,6 +6,7 @@ const mysql = require("mysql");
 //Routes
 const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
+const { getAllCompanies } = require("./routes/company");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -26,7 +27,6 @@ app.post("/api/user/signup", (req, res) => {
 });
 
 app.post("/api/company/signup", (req, res) => {
-  console.log("singinggg");
   signUpCompany(req, res, db);
 });
 
@@ -36,6 +36,10 @@ app.post("/api/user/login", (req, res) => {
 
 app.post("/api/company/login", (req, res) => {
   logInCompany(req, res, db);
+});
+
+app.get("/api/company", (req, res) => {
+  getAllCompanies(req, res, db);
 });
 
 app.listen(3001, () => {
