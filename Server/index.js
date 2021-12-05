@@ -8,7 +8,7 @@ const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
 const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
 const { getAllCompanies } = require("./routes/company");
-const { getAllCurrentTrips, getAllPastTrips } = require("./routes/company");
+const { getAllCurrentTrips, getAllPastTrips } = require("./routes/trip");
 
 const db = mysql.createConnection({
   host: "localhost",
