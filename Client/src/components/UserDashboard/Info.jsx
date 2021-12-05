@@ -24,7 +24,7 @@ function Info() {
 
   useEffect(() => {
     if (state.user[0]) {
-      setFName(state.user[0].firsstName);
+      setFName(state.user[0].firstName);
       setLName(state.user[0].lastName);
       setPhoneNB(state.user[0].mobileNB);
       setUserName(state.user[0].clientID);
