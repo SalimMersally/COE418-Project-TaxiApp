@@ -17,16 +17,15 @@ import companyLogo from "./../../assets/companyLogo.jpeg";
 
 function Navbar() {
   const [state] = useContext(AppContext);
-  const [name, setName] = useState();
+  const [name, setName] = useState(null);
   const [isCompany, setIsCompany] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (state.user[0]) {
-      setName(state.user[0].firsstName + " " + state.user[0].lastName);
+      setName(state.user[0].firstName + " " + state.user[0].lastName);
       navigate("/dashboard");
-    }
-    if (state.company[0]) {
+    } else if (state.company[0]) {
       setName(state.company[0].name);
       setIsCompany(false);
       navigate("/dashboard");

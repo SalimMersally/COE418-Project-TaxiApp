@@ -8,25 +8,81 @@ import {
   InputRightElement,
   Image,
   Container,
+  Textarea,
 } from "@chakra-ui/react";
-import React, { useRef } from "react";
+import React, { useRef, useContext, useState } from "react";
+import axios from "axios";
+import { AppContext } from "../../StateProvider";
+import { useNavigate } from "react-router-dom";
 
 //Images
 import road from "./../../assets/road.jpg";
 
 function SignUpComp() {
-  const [show1, setShow1] = React.useState(false);
-  const [show2, setShow2] = React.useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClick1 = () => setShow1(!show1);
   const handleClick2 = () => setShow2(!show2);
 
   const compNameRef = useRef();
   const emailRef = useRef();
-  const usernameRef = useRef();
   const passwordRef = useRef();
   const confirmPassRef = useRef();
-  const dateRef = useRef();
   const descRef = useRef();
+  const phonesRef = useRef();
+
+  const [, dispatch] = useContext(AppContext);
+  const [error, setError] = useState("");
+  const [error2, setError2] = useState("");
+
+  const navigate = useNavigate();
+
+  function submitUser() {
+    if (error === "" && error2 === "") {
+      console.log("sigining");
+      axios
+        .post("http://localhost:3001/api/company/signup", {
+          name: compNameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          mobileNB: phonesRef.current.value,
+          description: descRef.current.value,
+        })
+        .then((res) => {
+          if (res.data === "Sign up succesfull") {
+            navigate("/login");
+          }
+        });
+    }
+  }
+
+  function checkPass() {
+    if (passwordRef.current.value !== confirmPassRef.current.value) {
+      setError("Password Should Match!!!");
+    } else {
+      setError("");
+    }
+  }
+
+  function check() {
+    if (
+      compNameRef.current.value === "" ||
+      descRef.current.value === "" ||
+      emailRef.current.value === "" ||
+      passwordRef.current.value === "" ||
+      confirmPassRef.current.value === "" ||
+      phonesRef.current.value === ""
+    ) {
+      setError2("Please fill all values");
+    } else if (
+      phonesRef.current.value > 99999999 ||
+      phonesRef.current.value < 10000000
+    ) {
+      setError2("Incorrect Phone format, should be 8 digits");
+    } else {
+      setError2("");
+    }
+  }
 
   return (
     <Box>
@@ -57,6 +113,9 @@ function SignUpComp() {
         <Text fontFamily="roboto" fontSize="2xl" fontWeight="800" my="3">
           Sign up now
         </Text>
+        <Text fontFamily="roboto" fontSize="lg" fontWeight="400" color="red">
+          {error2}
+        </Text>
         <Input
           placeholder="Company Name"
           size="lg"
@@ -66,6 +125,7 @@ function SignUpComp() {
           borderWidth="0"
           my="3"
           ref={compNameRef}
+          onChange={check}
         />
         <Input
           placeholder="Company Email"
@@ -76,16 +136,7 @@ function SignUpComp() {
           borderWidth="0"
           my="3"
           ref={emailRef}
-        />
-        <Input
-          placeholder="Choose a username"
-          size="lg"
-          w="100%"
-          bg="gray.300"
-          borderRadius="0"
-          borderWidth="0"
-          my="3"
-          ref={usernameRef}
+          onChange={check}
         />
         <InputGroup size="lg" my="3">
           <Input
@@ -95,6 +146,7 @@ function SignUpComp() {
             placeholder="Enter password here"
             borderRadius="0"
             ref={passwordRef}
+            onChange={check}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick1} bg="gray.300">
@@ -110,6 +162,10 @@ function SignUpComp() {
             placeholder="Confirm password"
             borderRadius="0"
             ref={confirmPassRef}
+            onChange={() => {
+              check();
+              checkPass();
+            }}
           />
           <InputRightElement width="4.5rem">
             <Button h="1.75rem" size="sm" onClick={handleClick2} bg="gray.300">
@@ -117,26 +173,31 @@ function SignUpComp() {
             </Button>
           </InputRightElement>
         </InputGroup>
+        <Text fontFamily="roboto" fontSize="lg" fontWeight="400" color="red">
+          {error}
+        </Text>
         <Input
-          placeholder="Date of Establishment"
+          placeholder="Phone number"
           size="lg"
-          w="100%"
           bg="gray.300"
           borderRadius="0"
           borderWidth="0"
           my="3"
-          type="date"
-          ref={dateRef}
+          type="number"
+          ref={phonesRef}
+          onChange={check}
+          required
         />
-        <Input
+        <Textarea
           placeholder="Brief description of you company"
-          size="lg"
+          rows="5"
           bg="gray.300"
           borderRadius="0"
           borderWidth="0"
           my="3"
           type="text"
           ref={descRef}
+          onChange={check}
         />
         <Text
           fontFamily="roboto"
@@ -159,6 +220,7 @@ function SignUpComp() {
             type="submit"
             _hover={{ bg: "#FFC000", color: "black" }}
             _active={{ bg: "#F4B700" }}
+            onClick={submitUser}
           >
             SIGN UP
           </Button>

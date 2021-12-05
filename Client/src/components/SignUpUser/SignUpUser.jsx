@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useContext } from "react";
 import {
   Box,
   Flex,
@@ -11,6 +11,8 @@ import {
   Container,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { AppContext } from "../../StateProvider";
+import { useNavigate } from "react-router-dom";
 
 //Images
 import road from "./../../assets/road.jpg";
@@ -21,27 +23,68 @@ function SignUpUser() {
   const handleClick1 = () => setShow1(!show1);
   const handleClick2 = () => setShow2(!show2);
 
+  const [, dispatch] = useContext(AppContext);
+  const [error, setError] = useState("");
+  const [error2, setError2] = useState("");
+
   const fNameRef = useRef();
   const lNameRef = useRef();
   const emailRef = useRef();
-  const usernameRef = useRef();
   const passwordRef = useRef();
   const confirmPassRef = useRef();
   const phonesRef = useRef();
 
+  const navigate = useNavigate();
+
   function submitUser() {
-    axios.post("http://localhost:3001/api/user/signup", {
-      firstName: fNameRef.current.value,
-      lastName: lNameRef.current.value,
-      email: emailRef.current.value,
-      password: passwordRef.current.value,
-      mobileNB: phonesRef.current.value,
-    });
+    if (error === "" && error2 === "") {
+      axios
+        .post("http://localhost:3001/api/user/signup", {
+          firstName: fNameRef.current.value,
+          lastName: lNameRef.current.value,
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+          mobileNB: phonesRef.current.value,
+        })
+        .then((res) => {
+          if (res.data === "Sign up succesfull") {
+            navigate("/login");
+          }
+        });
+    }
+  }
+
+  function checkPass() {
+    if (passwordRef.current.value !== confirmPassRef.current.value) {
+      setError("Password Should Match!!!");
+    } else {
+      setError("");
+    }
+  }
+
+  function check() {
+    if (
+      fNameRef.current.value === "" ||
+      lNameRef.current.value === "" ||
+      emailRef.current.value === "" ||
+      passwordRef.current.value === "" ||
+      confirmPassRef.current.value === "" ||
+      phonesRef.current.value === ""
+    ) {
+      setError2("Please fill all values");
+    } else if (
+      phonesRef.current.value > 99999999 ||
+      phonesRef.current.value < 10000000
+    ) {
+      setError2("Incorrect Phone format, should be 8 digits");
+    } else {
+      setError2("");
+    }
   }
 
   return (
     <Box>
-      <Container maxW="container.xl" textAlign="left" px="10">
+      <Container maxW="container.xl" textAlign="left" px="6">
         <Box h="15vh" w="100%"></Box>
         <Box mx="10">
           <Text fontFamily="roboto" fontSize="5xl" fontWeight="700" my="4">
@@ -54,7 +97,6 @@ function SignUpUser() {
         <Box h="10vh" w="100%"></Box>
         <Image src={road} w="100%" mb="14" />
       </Container>
-
       <Flex
         w="40vw"
         p="10"
@@ -69,6 +111,9 @@ function SignUpUser() {
         <Text fontFamily="roboto" fontSize="2xl" fontWeight="800" my="3">
           Sign up now
         </Text>
+        <Text fontFamily="roboto" fontSize="lg" fontWeight="400" color="red">
+          {error2}
+        </Text>
         <Flex w="100%" justifyContent="space-between" my="2">
           <Input
             placeholder="First Name"
@@ -78,6 +123,7 @@ function SignUpUser() {
             borderRadius="0"
             borderWidth="0"
             ref={fNameRef}
+            onChange={check}
             required
           />
           <Input
@@ -88,6 +134,7 @@ function SignUpUser() {
             borderRadius="0"
             borderWidth="0"
             ref={lNameRef}
+            onChange={check}
             required
           />
         </Flex>
@@ -100,17 +147,7 @@ function SignUpUser() {
           borderWidth="0"
           my="3"
           ref={emailRef}
-          required
-        />
-        <Input
-          placeholder="Choose a username"
-          size="lg"
-          w="100%"
-          bg="gray.300"
-          borderRadius="0"
-          borderWidth="0"
-          my="3"
-          ref={usernameRef}
+          onChange={check}
           required
         />
         <InputGroup size="lg" my="3">
@@ -121,6 +158,7 @@ function SignUpUser() {
             placeholder="Enter password here"
             borderRadius="0"
             ref={passwordRef}
+            onChange={check}
             required
           />
           <InputRightElement width="4.5rem">
@@ -137,6 +175,10 @@ function SignUpUser() {
             placeholder="Confirm password"
             borderRadius="0"
             ref={confirmPassRef}
+            onChange={() => {
+              check();
+              checkPass();
+            }}
             required
           />
           <InputRightElement width="4.5rem">
@@ -145,6 +187,9 @@ function SignUpUser() {
             </Button>
           </InputRightElement>
         </InputGroup>
+        <Text fontFamily="roboto" fontSize="lg" fontWeight="400" color="red">
+          {error}
+        </Text>
         <Input
           placeholder="Phone number"
           size="lg"
@@ -154,6 +199,7 @@ function SignUpUser() {
           my="3"
           type="number"
           ref={phonesRef}
+          onChange={check}
           required
         />
         <Text

@@ -8,7 +8,7 @@ import InfoModal from "./InfoModal";
 
 // Images
 import companyLogo from "./../../assets/companyLogo.jpeg";
-import name from "./../../assets/name.png";
+import nameImage from "./../../assets/name.png";
 import emailPic from "./../../assets/email.png";
 import phone from "./../../assets/phone.png";
 import logout from "./../../assets/logout.png";
@@ -24,7 +24,7 @@ function Info() {
   useEffect(() => {
     if (state.company[0]) {
       setName(state.company[0].name);
-      setPhoneNB(state.company[0].dateOfEstablishment);
+      setPhoneNB(state.company[0].mobileNB);
       setUserName(state.company[0].companyID);
       setEmail(state.company[0].email);
     }
@@ -57,7 +57,7 @@ function Info() {
             {name}
           </Text>
           <Flex mx="6" pt="4">
-            <Image src={name} w="4" h="4" mr="4" />
+            <Image src={nameImage} w="4" h="4" mr="4" />
             <Box w="85%">
               <Text
                 fontSize="md"
