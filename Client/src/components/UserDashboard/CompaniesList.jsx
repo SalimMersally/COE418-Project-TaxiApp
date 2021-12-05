@@ -11,58 +11,28 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
+import axios from "axios";
 
+// Components
 import Company from "./Company";
 
 function CompaniesList() {
   const [search, setSearch] = useState("");
   const [companies, setCompanies] = useState([]);
+  const [filterCompanies, setFilteredCompanies] = useState([]);
 
   useEffect(() => {
-    const companiesDesc = [
-      { name: "company01 name", rating: "4.5" },
-      { name: "company02 name", rating: "4.5" },
-      { name: "company03 name", rating: "4.5" },
-      { name: "company04 name", rating: "4.5" },
-      { name: "company05 name", rating: "4.5" },
-      { name: "company06 name", rating: "4.5" },
-      { name: "company07 name", rating: "4.5" },
-      { name: "company08 name", rating: "4.5" },
-      { name: "company09 name", rating: "4.5" },
-      { name: "company10 name", rating: "4.5" },
-      { name: "company11 name", rating: "4.5" },
-      { name: "company12 name", rating: "4.5" },
-      { name: "company13 name", rating: "4.5" },
-      { name: "company14 name", rating: "4.5" },
-    ];
-    const objects = companiesDesc.map((item) => (
-      <Company name={item.name} rating={item.rating} />
-    ));
-    setCompanies((prev) => objects);
+    axios
+      .get("http://localhost:3001/api/companies")
+      .then((res) => setCompanies(res.data));
   }, []);
 
   useEffect(() => {
-    const companiesDesc = [
-      { name: "company01 name", rating: "4.5" },
-      { name: "company02 name", rating: "4.5" },
-      { name: "company03 name", rating: "4.5" },
-      { name: "company04 name", rating: "4.5" },
-      { name: "company05 name", rating: "4.5" },
-      { name: "company06 name", rating: "4.5" },
-      { name: "company07 name", rating: "4.5" },
-      { name: "company08 name", rating: "4.5" },
-      { name: "company09 name", rating: "4.5" },
-      { name: "company10 name", rating: "4.5" },
-      { name: "company11 name", rating: "4.5" },
-      { name: "company12 name", rating: "4.5" },
-      { name: "company13 name", rating: "4.5" },
-      { name: "company14 name", rating: "4.5" },
-    ];
-    const filtered = companiesDesc.filter((item) => item.name.includes(search));
-    const objects = filtered.map((item) => (
-      <Company name={item.name} rating={item.rating} />
-    ));
-    setCompanies((prev) => objects);
+    setFilteredCompanies((prev) =>
+      companies.filter((item) =>
+        item.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
   }, [search]);
 
   return (
@@ -117,7 +87,18 @@ function CompaniesList() {
       </Flex>
       <hr className="info" my="2" />
       <Box overflowY="auto" h="85%" my="2">
-        <Grid templateColumns="repeat(5, 1fr)">{companies}</Grid>
+        <Grid templateColumns="repeat(5, 1fr)">
+          {filterCompanies.map((item) => (
+            <Company
+              name={item.name}
+              rating={item.rating}
+              mobileNB={item.mobileNB}
+              email={item.email}
+              description={item.description}
+              key={item.companyID}
+            />
+          ))}
+        </Grid>
       </Box>
     </Container>
   );

@@ -10,7 +10,6 @@ const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
 const { getAllCompanies } = require("./routes/company");
 const { getAllCurrentTrips, getAllPastTrips } = require("./routes/company");
 
-
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -57,7 +56,7 @@ app.post("/api/trip/past", (req, res) => {
   getAllPastTrips(req, res, db);
 });
 
-app.get("/api/company", (req, res) => {
+app.get("/api/companies", (req, res) => {
   getAllCompanies(req, res, db);
 });
 
