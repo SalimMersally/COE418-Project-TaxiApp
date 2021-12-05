@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Flex,
   Spacer,
@@ -6,9 +6,35 @@ import {
   Button,
   Text,
   Center,
+  Image,
 } from "@chakra-ui/react";
+import { AppContext } from "../../StateProvider";
+import { useNavigate, Link } from "react-router-dom";
+
+// Images
+import userProfile from "./../../assets/userProfile.png";
+import companyLogo from "./../../assets/companyLogo.jpeg";
 
 function Navbar() {
+  const [state] = useContext(AppContext);
+  const [name, setName] = useState();
+  const [isCompany, setIsCompany] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (state.user[0]) {
+      setName(state.user[0].firsstName + " " + state.user[0].lastName);
+      navigate("/dashboard");
+    }
+    if (state.company[0]) {
+      setName(state.company[0].name);
+      setIsCompany(false);
+      navigate("/dashboard");
+    } else {
+      setName(null);
+    }
+  }, [state]);
+
   return (
     <Flex as="header" zIndex="9999" w="100%" bg="black" pl="20" pr="4" py="4">
       <Center>
@@ -16,32 +42,58 @@ function Navbar() {
       </Center>
       <Spacer />
       <ButtonGroup bg="transparent" variant="link" colorScheme="button" mr="2">
-        <Button as="a" href="/" mr="2">
-          HOME
+        <Button mr="2">
+          <Link to="/">HOME</Link>
         </Button>
         <Button as="a" href="/about" mr="2">
-          ABOUT
+          <Link to="/about">ABOUT</Link>
         </Button>
         <Button as="a" href="/contact" mr="2">
-          CONTACT
+          <Link to="/contact">CONTACT</Link>
         </Button>
-        <Button as="a" href="/login" mr="2">
-          LOGIN
-        </Button>
+        {name ? (
+          <Flex>
+            <Text
+              fontSize="xl"
+              fontFamily="roboto"
+              color="white"
+              alignSelf="center"
+              lineHeight="1"
+              fontWeight="700"
+              mr="2"
+            >
+              <Link to="dashboard">{name}</Link>
+            </Text>
+            <Image
+              src={isCompany ? companyLogo : userProfile}
+              h="10"
+              w="10"
+              borderRadius="full"
+            />
+          </Flex>
+        ) : (
+          <Button as="a" href="/login" mr="2">
+            <Link to="/login">LOGIN</Link>
+          </Button>
+        )}
       </ButtonGroup>
-      <Button
-        as="a"
-        href="/signup"
-        borderRadius="full"
-        mr="2"
-        p="5"
-        bg="yellow.400"
-        color="black"
-        _hover={{ bg: "#FFC000", color: "black" }}
-        _active={{ bg: "#F4B700" }}
-      >
-        SIGN UP
-      </Button>
+      {name ? (
+        ""
+      ) : (
+        <Button
+          as="a"
+          href="/signup"
+          borderRadius="full"
+          mr="2"
+          p="5"
+          bg="yellow.400"
+          color="black"
+          _hover={{ bg: "#FFC000", color: "black" }}
+          _active={{ bg: "#F4B700" }}
+        >
+          <Link to="/signup">SIGN UP</Link>
+        </Button>
+      )}
     </Flex>
   );
 }
