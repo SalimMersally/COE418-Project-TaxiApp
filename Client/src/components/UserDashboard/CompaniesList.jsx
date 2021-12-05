@@ -22,9 +22,10 @@ function CompaniesList() {
   const [filterCompanies, setFilteredCompanies] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/companies")
-      .then((res) => setCompanies(res.data));
+    axios.get("http://localhost:3001/api/companies").then((res) => {
+      setCompanies(res.data);
+      setFilteredCompanies(res.data);
+    });
   }, []);
 
   useEffect(() => {
