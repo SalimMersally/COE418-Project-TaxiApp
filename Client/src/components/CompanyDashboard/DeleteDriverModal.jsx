@@ -21,8 +21,6 @@ import close from "./../../assets/close.png";
 
 function DeleteModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
 
   return (
     <>

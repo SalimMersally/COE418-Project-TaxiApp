@@ -1,7 +1,7 @@
 module.exports = {
   logInUser: (req, res, db) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.query.email;
+    const password = req.query.password;
     const sqlSelect = "SELECT * FROM client WHERE email = ? AND password = ? ";
     db.query(sqlSelect, [email, password], function (err, result) {
       console.log(err);
@@ -13,8 +13,8 @@ module.exports = {
     });
   },
   logInCompany: (req, res, db) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = req.query.email;
+    const password = req.query.password;
     const sqlSelect = "SELECT * FROM company WHERE email = ? AND password = ? ";
     db.query(sqlSelect, [email, password], function (err, result) {
       console.log(err);

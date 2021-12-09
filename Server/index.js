@@ -41,18 +41,18 @@ app.post("/api/company/signup", (req, res) => {
   signUpCompany(req, res, db);
 });
 
-app.post("/api/user/login", (req, res) => {
+app.get("/api/user/login", (req, res) => {
   logInUser(req, res, db);
 });
 
-app.post("/api/company/login", (req, res) => {
+app.get("/api/company/login", (req, res) => {
   logInCompany(req, res, db);
 });
 
-app.post("/api/trip/current", (req, res) => {
+app.get("/api/trip/current", (req, res) => {
   getAllCurrentTrips(req, res, db);
 });
-app.post("/api/trip/past", (req, res) => {
+app.get("/api/trip/past", (req, res) => {
   getAllPastTrips(req, res, db);
 });
 

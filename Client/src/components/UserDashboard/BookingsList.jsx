@@ -22,8 +22,10 @@ function BookingsList() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/api/trip/current", {
-        clientID: state.user[0].clientID,
+      .get("http://localhost:3001/api/trip/current", {
+        params: {
+          clientID: state.user[0].clientID,
+        },
       })
       .then((res) => {
         setCurrentList(res.data);

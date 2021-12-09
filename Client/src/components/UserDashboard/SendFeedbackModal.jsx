@@ -26,9 +26,6 @@ import star from "./../../assets/star.png";
 function SendFeedbackModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Current date
-  const now = new Date();
-
   return (
     <>
       <Tooltip hasArrow label="Add" bg="gray.400">

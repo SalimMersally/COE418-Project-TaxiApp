@@ -34,7 +34,7 @@ function CompaniesList() {
         item.name.toLowerCase().includes(search.toLowerCase())
       )
     );
-  }, [search]);
+  }, [search, companies]);
 
   return (
     <Container maxW="container.lg" px="10" h="90vh" py="2">

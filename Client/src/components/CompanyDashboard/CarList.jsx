@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Box,
-  Flex,
-  Container,
-  Text,
-  InputGroup,
-  InputRightElement,
-  Input,
-} from "@chakra-ui/react";
-import { SearchIcon } from "@chakra-ui/icons";
+import { Box, Flex, Container, Text } from "@chakra-ui/react";
 
 // Components
 import CarItem from "./CarItem";

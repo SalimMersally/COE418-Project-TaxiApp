@@ -1,21 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
   Button,
   Image,
   Tooltip,
   Text,
-  Input,
   Flex,
-  InputGroup,
-  InputRightElement,
   Box,
 } from "@chakra-ui/react";
 
@@ -24,8 +19,6 @@ import close from "./../../assets/close.png";
 
 function DeleteModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
 
   return (
     <>

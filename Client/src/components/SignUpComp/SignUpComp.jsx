@@ -10,9 +10,8 @@ import {
   Container,
   Textarea,
 } from "@chakra-ui/react";
-import React, { useRef, useContext, useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
-import { AppContext } from "../../StateProvider";
 import { useNavigate } from "react-router-dom";
 
 //Images
@@ -31,7 +30,6 @@ function SignUpComp() {
   const descRef = useRef();
   const phonesRef = useRef();
 
-  const [, dispatch] = useContext(AppContext);
   const [error, setError] = useState("");
   const [error2, setError2] = useState("");
 
