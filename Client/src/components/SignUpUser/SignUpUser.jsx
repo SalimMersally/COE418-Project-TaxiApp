@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext } from "react";
+import React, { useRef, useState } from "react";
 import {
   Box,
   Flex,
@@ -11,7 +11,6 @@ import {
   Container,
 } from "@chakra-ui/react";
 import axios from "axios";
-import { AppContext } from "../../StateProvider";
 import { useNavigate } from "react-router-dom";
 
 //Images
@@ -23,7 +22,6 @@ function SignUpUser() {
   const handleClick1 = () => setShow1(!show1);
   const handleClick2 = () => setShow2(!show2);
 
-  const [, dispatch] = useContext(AppContext);
   const [error, setError] = useState("");
   const [error2, setError2] = useState("");
 
@@ -234,7 +232,6 @@ function SignUpUser() {
             type="submit"
             _hover={{ bg: "#FFC000", color: "black" }}
             _active={{ bg: "#F4B700" }}
-            type="submit"
             onClick={submitUser}
           >
             SIGN UP

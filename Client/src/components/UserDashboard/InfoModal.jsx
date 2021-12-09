@@ -43,19 +43,42 @@ function InfoModal(props) {
   const [error4, setError4] = useState("");
 
   useEffect(() => {
-    check1();
+    if (
+      fName === "" ||
+      lName === "" ||
+      mobileNB === "" ||
+      newPass === "" ||
+      confirmPass === "" ||
+      oldPass === ""
+    ) {
+      setError1("Please fill all fields");
+    } else {
+      setError1("");
+    }
   }, [fName, lName, mobileNB, oldPass, newPass, confirmPass]);
 
   useEffect(() => {
-    check2();
-  }, [oldPass]);
+    if (oldPass !== props.password) {
+      setError2("Password don't match the old password");
+    } else {
+      setError2("");
+    }
+  }, [oldPass, props.password]);
 
   useEffect(() => {
-    check3();
+    if (newPass !== confirmPass) {
+      setError3("Password should match");
+    } else {
+      setError3("");
+    }
   }, [newPass, confirmPass]);
 
   useEffect(() => {
-    check4();
+    if (mobileNB > 99999999 || mobileNB < 10000000) {
+      setError4("Mobile number should be 8 digits");
+    } else {
+      setError4("");
+    }
   }, [mobileNB]);
 
   function submit() {
@@ -84,46 +107,6 @@ function InfoModal(props) {
           })
         );
       onClose();
-    }
-  }
-
-  function check1() {
-    if (
-      fName === "" ||
-      lName === "" ||
-      mobileNB === "" ||
-      newPass === "" ||
-      confirmPass === "" ||
-      oldPass === ""
-    ) {
-      setError1("Please fill all fields");
-    } else {
-      setError1("");
-    }
-  }
-
-  function check2() {
-    if (oldPass !== props.password) {
-      setError2("Password don't match the old password");
-    } else {
-      setError2("");
-    }
-  }
-
-  function check3() {
-    if (newPass !== confirmPass) {
-      setError3("Password should match");
-    } else {
-      setError3("");
-    }
-  }
-
-  function check4() {
-    if (mobileNB > 99999999 || mobileNB < 10000000) {
-      console.log(mobileNB > 99999999 || mobileNB < 10000000);
-      setError4("Mobile number should be 8 digits");
-    } else {
-      setError4("");
     }
   }
 

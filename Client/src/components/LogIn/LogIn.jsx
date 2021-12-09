@@ -34,9 +34,11 @@ function LogIn() {
       url = url + "api/company/login";
     }
     axios
-      .post(url, {
-        email: emailRef.current.value,
-        password: passwordRef.current.value,
+      .get(url, {
+        params: {
+          email: emailRef.current.value,
+          password: passwordRef.current.value,
+        },
       })
       .then((res) => {
         if (typeof res.data === "string") {
@@ -117,6 +119,9 @@ function LogIn() {
                   placeholder="Enter password here"
                   borderRadius="0"
                   ref={passwordRef}
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") submit();
+                  }}
                 />
                 <InputRightElement width="4.5rem">
                   <Button

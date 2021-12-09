@@ -12,10 +12,8 @@ import {
   Image,
   Tooltip,
   Text,
-  Textarea,
   Input,
   Flex,
-  Select,
   Box,
 } from "@chakra-ui/react";
 

@@ -31,13 +31,13 @@ function Summary() {
         without any problems.
       </Text>
       <Flex py="6" alignItems="center">
-        <a href="https://www.facebook.com" target="_blank">
+        <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
           <Image src={facebook} w="8" h="8" mr="2" />
         </a>
-        <a href="https://www.instagram.com" target="_blank">
+        <a href="https://www.instagram.com" target="_blank" rel="noreferrer">
           <Image src={instagram} w="8" h="8" mx="2" />
         </a>
-        <a href="https://www.twitter.com" target="_blank">
+        <a href="https://www.twitter.com" target="_blank" rel="noreferrer">
           <Image src={twitter} w="8" ml="2" />
         </a>
       </Flex>

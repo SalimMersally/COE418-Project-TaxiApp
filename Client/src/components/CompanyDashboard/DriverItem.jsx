@@ -1,8 +1,5 @@
 import React from "react";
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
-
-// Images
-import close from "./../../assets/close.png";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 // Components
 import DeleteDriverModal from "./DeleteDriverModal";
