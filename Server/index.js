@@ -7,7 +7,7 @@ const mysql = require("mysql");
 const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
 const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
-const { getAllCompanies } = require("./routes/company");
+const { getAllCompanies, getDrivers, getCars } = require("./routes/company");
 const { getAllCurrentTrips, getAllPastTrips } = require("./routes/trip");
 
 const db = mysql.createConnection({
@@ -58,6 +58,14 @@ app.get("/api/trip/past", (req, res) => {
 
 app.get("/api/companies", (req, res) => {
   getAllCompanies(req, res, db);
+});
+
+app.get("/api/company/drivers", (req, res) => {
+  getDrivers(req, res, db);
+});
+
+app.get("/api/company/cars", (req, res) => {
+  getCars(req, res, db);
 });
 
 app.listen(3001, () => {

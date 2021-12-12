@@ -5,9 +5,9 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import DeleteDriverModal from "./DeleteDriverModal";
 
 function DriverItem(props) {
-  const fName = props.fName;
-  const lName = props.lName;
-  const mobileNb = props.mobileNb;
+  const fName = props.info.firstName;
+  const lName = props.info.lastName;
+  const mobileNb = props.info.mobileNB;
 
   return (
     <Box w="95%">

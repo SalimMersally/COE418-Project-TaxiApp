@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Box, Flex, Container, Text } from "@chakra-ui/react";
+import axios from "axios";
+import { AppContext } from "../../StateProvider";
 
 // Components
 import CarItem from "./CarItem";
@@ -7,33 +9,16 @@ import AddCarModal from "./AddCarModal";
 
 function CarList() {
   const [cars, setCars] = useState([]);
+  const [state] = useContext(AppContext);
 
   useEffect(() => {
-    const carsDesc = [
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-      { company: "kia", model: "cerato", color: "black", nbOfSeats: "4" },
-    ];
-    const objects = carsDesc.map((item) => (
-      <CarItem
-        company={item.company}
-        model={item.model}
-        color={item.color}
-        nbOfSeats={item.nbOfSeats}
-      />
-    ));
-    setCars((prev) => objects);
+    axios
+      .get("http://localhost:3001/api/company/cars", {
+        params: { companyID: state.company[0].companyID },
+      })
+      .then((res) => {
+        setCars(res.data);
+      });
   }, []);
 
   return (
@@ -52,7 +37,9 @@ function CarList() {
       <hr className="info" my="2" />
       <Box overflowY="auto" h="85%" my="2">
         <Flex direction="column" justifyContent="center" w="100%">
-          {cars}
+          {cars.map((item) => (
+            <CarItem info={item} key={item.licenseChar + item.licenseNB} />
+          ))}
         </Flex>
       </Box>
     </Container>
