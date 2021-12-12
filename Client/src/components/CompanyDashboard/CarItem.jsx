@@ -5,10 +5,10 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 import DeleteCarModal from "./DeleteCarModal";
 
 function CarItem(props) {
-  const company = props.company;
-  const model = props.model;
-  const nbOfSeats = props.nbOfSeats;
-  const color = props.color;
+  const company = props.info.manifacturerCompany;
+  const model = props.info.model;
+  const nbOfSeats = props.info.nbOfSeats;
+  const color = props.info.color;
 
   return (
     <Box w="95%">

@@ -44,6 +44,7 @@ function LogIn() {
         if (typeof res.data === "string") {
           setError(res.data);
         } else {
+          dispatch({ type: "SET_LOG", value: true });
           if (type === "client") {
             dispatch({ type: "SET_USER", value: res.data });
           } else {
@@ -135,10 +136,24 @@ function LogIn() {
                 </InputRightElement>
               </InputGroup>
             </Box>
-            <RadioGroup onChange={setType} value={type}>
+            <RadioGroup onChange={setType} value={type} py="2">
               <Stack direction="row">
-                <Radio value="client">Client</Radio>
-                <Radio value="company">Company</Radio>
+                <Radio
+                  value="client"
+                  size="lg"
+                  colorScheme="yellow"
+                  sx={{ outline: "1px solid #FFC000" }}
+                >
+                  <Text color="black">Client</Text>
+                </Radio>
+                <Radio
+                  value="company"
+                  size="lg"
+                  colorScheme="yellow"
+                  sx={{ outline: "1px solid #FFC000" }}
+                >
+                  <Text color="black">Company</Text>
+                </Radio>
               </Stack>
             </RadioGroup>
             <Button
@@ -152,7 +167,7 @@ function LogIn() {
               w="100%"
               display="flex"
               justifyContent="space-between"
-              mt="4"
+              mt="2"
               size="lg"
               borderRadius="0"
               _hover={{ bg: "#FFC000", color: "black" }}
