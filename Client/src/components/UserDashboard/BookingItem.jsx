@@ -85,7 +85,7 @@ function BookingItem(props) {
       </Box>
       <Flex w="10%" justifyContent="flex-end" alignItems="center">
         {props.isHistory ? (
-          <SendFeedbackModal />
+          <SendFeedbackModal id={props.info.tripID} />
         ) : (
           <>
             <EditBookingModal info={props.info} />

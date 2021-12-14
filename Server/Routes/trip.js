@@ -102,7 +102,6 @@ module.exports = {
       }
     );
   },
-
   updateTrip: (req, res, db) => {
     const drivingLicenceNB = req.body.drivingLicenseNB;
     const licenceChar = req.body.licenseChar;
@@ -122,12 +121,11 @@ module.exports = {
       }
     );
   },
-
   sendFeedback: (req, res, db) => {
     const text = req.body.text;
     const rating = req.body.rating;
     const clientID = req.body.clientID;
-    const tripID = req.body.companyID;
+    const tripID = req.body.tripID;
     const sqlInsert =
       "INSERT INTO FEEDBACK (rate, text,clientID, tripID) VALUES (?,?,?,?);";
     db.query(sqlInsert, [rating, text, clientID, tripID], (err, result) => {
@@ -137,10 +135,9 @@ module.exports = {
       }
     });
   },
-
   viewFeedback: (req, res, db) => {
-    const tripID = req.query.tripID;
-    const clientID = req.query.clientID;
+    const tripID = req.query.IDs[0];
+    const clientID = req.query.IDs[1];
     const sqlSelect =
       "SELECT rate, text FROM FEEDBACK WHERE clientID = ? AND tripID = ?;";
     db.query(sqlSelect, [clientID, tripID], function (err, result) {
@@ -148,7 +145,6 @@ module.exports = {
       res.send(result);
     });
   },
-
   deleteTrip: (req, res, db) => {
     const tripID = req.body.tripID;
     const sqlDelete = "DELETE FROM TRIP WHERE tripID = ?; ";
