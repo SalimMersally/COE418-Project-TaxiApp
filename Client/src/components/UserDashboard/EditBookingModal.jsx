@@ -28,15 +28,50 @@ function EditBookingModal(props) {
   const [fromCity, setFromCity] = useState(props.info.FCity);
   const [fromBuidling, setFromBuidling] = useState(props.info.FBuilding);
   const [fromStreet, setFromStreet] = useState(props.info.FStreet);
-  const [toCity, setToCity] = useState(props.info.tCity);
-  const [toBuidling, setToBuidling] = useState(props.info.tBuilding);
-  const [toStreet, setToStreet] = useState(props.info.tStreet);
-  const [time, setTime] = useState(props.info.Time);
-  const [date, setDate] = useState(props.info.Date);
-  const [compName, setCompName] = useState(props.info.company);
+  const [toCity, setToCity] = useState(props.info.TCity);
+  const [toBuidling, setToBuidling] = useState(props.info.TBuilding);
+  const [toStreet, setToStreet] = useState(props.info.TStreet);
+  const [time, setTime] = useState(props.info.time);
+  const [date, setDate] = useState(props.info.date.substring(0, 10));
   const [luggages, setLuggages] = useState(props.info.numberOfPackages);
   const [seats, setSeats] = useState(props.info.nbOfSeat);
-  const [desc, setDesc] = useState(props.info.Description);
+  const [desc, setDesc] = useState(props.info.description);
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (
+      fromCity === "" ||
+      fromBuidling === "" ||
+      fromStreet === "" ||
+      toCity === "" ||
+      toStreet === "" ||
+      toBuidling === "" ||
+      time === "" ||
+      date === "" ||
+      luggages === "" ||
+      seats === "" ||
+      desc === ""
+    ) {
+      setError("Please fill all values");
+    } else {
+      setError("");
+    }
+  }, [
+    fromCity,
+    fromBuidling,
+    fromStreet,
+    toCity,
+    toStreet,
+    toBuidling,
+    time,
+    date,
+    luggages,
+    seats,
+    desc,
+  ]);
+
+  function submit() {}
 
   // Current date
   const now = new Date();
@@ -45,15 +80,14 @@ function EditBookingModal(props) {
     setFromCity(props.info.FCity);
     setFromBuidling(props.info.FBuilding);
     setFromStreet(props.info.FStreet);
-    setToCity(props.info.tCity);
-    setToBuidling(props.info.tBuilding);
-    setToStreet(props.info.tStreet);
+    setToCity(props.info.TCity);
+    setToBuidling(props.info.TBuilding);
+    setToStreet(props.info.TStreet);
     setTime(props.info.Time);
-    setDate(props.info.Date.substring(0, 9));
-    setCompName(props.info.company);
+    setDate(props.info.Date.substring(0, 10));
     setLuggages(props.info.numberOfPackages);
     setSeats(props.info.nbOfSeat);
-    setDesc(props.info.Description);
+    setDesc(props.info.description);
   }
 
   return (
@@ -79,6 +113,14 @@ function EditBookingModal(props) {
           </ModalHeader>
           <ModalCloseButton onClick={reset} />
           <ModalBody>
+            <Text
+              fontFamily="roboto"
+              fontSize="sm"
+              fontWeight="400"
+              color="red"
+            >
+              {error}
+            </Text>
             <Flex mb="1" justifyContent="space-between">
               <Text
                 fontSize="lg"
@@ -164,26 +206,6 @@ function EditBookingModal(props) {
                   onChange={(e) => setToBuidling(e.target.value)}
                 />
               </Flex>
-            </Flex>
-            <Flex my="4" justifyContent="space-between">
-              <Text
-                fontSize="lg"
-                fontFamily="roboto"
-                color="black"
-                fontWeight="700"
-                lineHeight="1"
-                alignSelf="center"
-              >
-                Company
-              </Text>
-              <Select
-                w="80%"
-                placeholder="-- None --"
-                size="sm"
-                bg="white"
-                borderRadius="0"
-                borderWidth="0"
-              ></Select>
             </Flex>
             <Flex my="4">
               <Flex w="50%" justifyContent="space-between">
@@ -310,7 +332,6 @@ function EditBookingModal(props) {
               />
             </Flex>
           </ModalBody>
-
           <ModalFooter>
             <Button
               borderRadius="0"
@@ -321,7 +342,7 @@ function EditBookingModal(props) {
               _hover={{ bg: "#252525", color: "#FFC000" }}
               _active={{ bg: "black" }}
             >
-              Book
+              Edit
             </Button>
           </ModalFooter>
         </ModalContent>

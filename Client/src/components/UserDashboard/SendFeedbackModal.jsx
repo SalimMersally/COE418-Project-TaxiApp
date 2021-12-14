@@ -66,7 +66,7 @@ function SendFeedbackModal(props) {
 
   return (
     <>
-      <Tooltip hasArrow label="Add" bg="gray.400">
+      <Tooltip hasArrow label={isFeedback ? "view" : "add"} bg="gray.400">
         <Box as="button">
           <Text
             onClick={onOpen}
