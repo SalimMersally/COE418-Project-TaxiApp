@@ -99,4 +99,24 @@ module.exports = {
       }
     );
   },
+
+  updateTrip: (req, res, db) => {
+    const drivingLicenceNB = req.body.drivingLicenseNB;
+    const licenceChar = req.body.licenseChar;
+    const licenseNB = req.body.licenseNB;
+    const tripID = req.body.tripID;
+
+    const sqlUpdate =
+      "UPDATE TRIP SET drivingLicenseNB = ? AND licenseChar = ? AND licenseNB = ? WHERE tripID = ?;";
+    db.query(
+      sqlUpdate,
+      [drivingLicenceNB, licenceChar, licenseNB, tripID],
+      (err, result) => {
+        console.log(err);
+        if (result !== null) {
+          res.send("trip updated successfully");
+        }
+      }
+    );
+  },
 };

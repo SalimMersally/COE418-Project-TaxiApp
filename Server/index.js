@@ -13,6 +13,7 @@ const {
   getAllPastTrips,
   addGetLocation,
   addTrip,
+  updateTrip,
 } = require("./routes/trip");
 
 const db = mysql.createConnection({
@@ -46,12 +47,15 @@ app.post("/api/company/signup", (req, res) => {
   signUpCompany(req, res, db);
 });
 
-app.post("/api/getAddLocation", (req, res) => {
+app.post("/api/Trip/getAddLocation", (req, res) => {
   addGetLocation(req, res, db);
 });
 
-app.post("/api/addTrip", (req, res) => {
+app.post("/api/Trip/add", (req, res) => {
   addTrip(req, res, db);
+});
+app.post("/api/Trip/update", (req, res) => {
+  updateTrip(req, res, db);
 });
 //
 //
