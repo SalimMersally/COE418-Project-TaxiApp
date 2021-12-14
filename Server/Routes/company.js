@@ -24,4 +24,23 @@ module.exports = {
       res.send(result);
     });
   },
+  nbDrivers: (req, res, db) => {
+    const companyID = req.query.companyID;
+    const sqlSelect =
+      "SELECT companyID, COUNT(*) AS nbOfDriver FROM WORKFOR WHERE companyID= ? AND dateTo IS  NULL;";
+    db.query(sqlSelect, [companyID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
+
+  nbCars: (req, res, db) => {
+    const companyID = req.query.companyID;
+    const sqlSelect =
+      "SELECT companyID, COUNT(*) AS nbOfCar FROM CAR GROUP BY companyID;";
+    db.query(sqlSelect, [companyID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
 };

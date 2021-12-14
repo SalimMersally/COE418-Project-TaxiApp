@@ -122,4 +122,30 @@ module.exports = {
       }
     );
   },
+
+  sendFeedback: (req, res, db) => {
+    const text = req.body.text;
+    const rating = req.body.rating;
+    const clientID = req.body.clientID;
+    const tripID = req.body.companyID;
+    const sqlInsert =
+      "INSERT INTO FEEDBACK (rate, text,clientID, tripID) VALUES (?,?,?,?);";
+    db.query(sqlInsert, [rating, text, clientID, tripID], (err, result) => {
+      console.log(err);
+      if (result !== null) {
+        res.send("Thank you for rating!");
+      }
+    });
+  },
+
+  viewFeedback: (req, res, db) => {
+    const tripID = req.query.tripID;
+    const clientID = req.query.clientID;
+    const sqlSelect =
+      "SELECT rate, text FROM FEEDBACK WHERE clientID = ? AND tripID = ?;";
+    db.query(sqlSelect, [clientID, tripID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
 };
