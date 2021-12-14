@@ -43,4 +43,14 @@ module.exports = {
       res.send(result);
     });
   },
+
+  rating: (req, res, db) => {
+    const companyID = req.query.companyID;
+    const sqlSelect =
+      "SELECT AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP WHERE companyID = ?;";
+    db.query(sqlSelect, [companyID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
 };
