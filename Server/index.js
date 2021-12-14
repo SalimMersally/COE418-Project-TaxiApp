@@ -17,6 +17,8 @@ const {
 } = require("./routes/company");
 const {
   getAllCurrentTrips,
+  getDriverForTrip,
+  getCarForTrip,
   getAllPastTrips,
   getLocationID,
   addTrip,
@@ -93,6 +95,12 @@ app.get("/api/trip/current", (req, res) => {
 });
 app.get("/api/trip/past", (req, res) => {
   getAllPastTrips(req, res, db);
+});
+app.get("/api/trip/current/car", (req, res) => {
+  getCarForTrip(req, res, db);
+});
+app.get("/api/trip/current/driver", (req, res) => {
+  getDriverForTrip(req, res, db);
 });
 
 app.get("/api/companies", (req, res) => {
