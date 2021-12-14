@@ -1,12 +1,10 @@
 import React from "react";
 import { Box, Flex, Image, Text, Tooltip } from "@chakra-ui/react";
 
-// Images
-import editBlack from "./../../assets/editBlack.png";
-
 // Components
 import DeleteModal from "./DeleteModal";
 import SendFeedbackModal from "./SendFeedbackModal";
+import EditBookingModal from "./EditBookingModal";
 
 function BookingItem(props) {
   const from =
@@ -90,9 +88,7 @@ function BookingItem(props) {
           <SendFeedbackModal />
         ) : (
           <>
-            <Tooltip hasArrow label="Edit" bg="gray.400">
-              <Image src={editBlack} w="5" h="5" mx="4" />
-            </Tooltip>
+            <EditBookingModal info={props.info} />
             <DeleteModal />
           </>
         )}

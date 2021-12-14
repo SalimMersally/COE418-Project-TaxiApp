@@ -11,7 +11,7 @@ const { getAllCompanies, getDrivers, getCars } = require("./routes/company");
 const {
   getAllCurrentTrips,
   getAllPastTrips,
-  addGetLocation,
+  getLocationID,
   addTrip,
   updateTrip,
 } = require("./routes/trip");
@@ -30,6 +30,8 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// Post methods
+
 app.post("/api/user/edit", (req, res) => {
   console.log("receivng");
   editUserInfo(req, res, db);
@@ -47,21 +49,20 @@ app.post("/api/company/signup", (req, res) => {
   signUpCompany(req, res, db);
 });
 
-app.post("/api/Trip/getAddLocation", (req, res) => {
-  addGetLocation(req, res, db);
+app.post("/api/Trip/getLocationID", (req, res) => {
+  getLocationID(req, res, db);
 });
 
 app.post("/api/Trip/add", (req, res) => {
   addTrip(req, res, db);
 });
+
 app.post("/api/Trip/update", (req, res) => {
   updateTrip(req, res, db);
 });
-//
-//
-///// here starts everything related to the get method
-//
-//
+
+// Get Methods
+
 app.get("/api/user/login", (req, res) => {
   logInUser(req, res, db);
 });
