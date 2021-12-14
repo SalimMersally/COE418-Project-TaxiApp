@@ -8,7 +8,6 @@ import {
   InputRightElement,
   Grid,
   Input,
-  Select,
 } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -48,22 +47,6 @@ function CompaniesList() {
           Comapnies
         </Text>
         <Flex w="60%" justifyContent="flex-end">
-          <Box w="30%" mr="2">
-            <Select
-              placeholder="-- None --"
-              size="md"
-              w="100%"
-              bg="white"
-              variant="outline"
-              borderRadius="0"
-              borderColor="yellow.400"
-            >
-              <option value="AZ">Ascending A-Z</option>
-              <option value="ZA">Descending Z-A</option>
-              <option value="HR">Highest Rating</option>
-              <option value="LR">Lowest Rating</option>
-            </Select>
-          </Box>
           <Box w="40%">
             <InputGroup>
               <Input
@@ -90,14 +73,7 @@ function CompaniesList() {
       <Box overflowY="auto" h="85%" my="2">
         <Grid templateColumns="repeat(5, 1fr)">
           {filterCompanies.map((item) => (
-            <Company
-              name={item.name}
-              rating={item.rating}
-              mobileNB={item.mobileNB}
-              email={item.email}
-              description={item.description}
-              key={item.companyID}
-            />
+            <Company info={item} key={item.companyID} />
           ))}
         </Grid>
       </Box>

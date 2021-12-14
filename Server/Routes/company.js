@@ -27,27 +27,24 @@ module.exports = {
   nbDrivers: (req, res, db) => {
     const companyID = req.query.companyID;
     const sqlSelect =
-      "SELECT companyID, COUNT(*) AS nbOfDriver FROM WORKFOR WHERE companyID= ? AND dateTo IS  NULL;";
+      "SELECT COUNT(*) AS nbOfDriver FROM WORKFOR WHERE companyID= ? AND dateTo IS NULL";
     db.query(sqlSelect, [companyID], function (err, result) {
       console.log(err);
       res.send(result);
     });
   },
-
   nbCars: (req, res, db) => {
     const companyID = req.query.companyID;
-    const sqlSelect =
-      "SELECT companyID, COUNT(*) AS nbOfCar FROM CAR GROUP BY companyID;";
+    const sqlSelect = "SELECT COUNT(*) AS nbOfCar FROM CAR WHERE companyID = ?";
     db.query(sqlSelect, [companyID], function (err, result) {
       console.log(err);
       res.send(result);
     });
   },
-
   rating: (req, res, db) => {
     const companyID = req.query.companyID;
     const sqlSelect =
-      "SELECT AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP WHERE companyID = ?;";
+      "SELECT AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP WHERE companyID = ?";
     db.query(sqlSelect, [companyID], function (err, result) {
       console.log(err);
       res.send(result);

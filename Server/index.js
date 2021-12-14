@@ -120,6 +120,8 @@ app.get("/api/Trip/viewFeedback", (req, res) => {
   viewFeedback(req, res, db);
 });
 
+// Start Server
+
 app.listen(3001, () => {
   console.log("Server started on port 3001");
 });
