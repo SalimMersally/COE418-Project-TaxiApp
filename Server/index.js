@@ -11,6 +11,8 @@ const {
   getAllCompanies,
   getDrivers,
   getCars,
+  addCar,
+  addDriver,
   nbCars,
   nbDrivers,
   rating,
@@ -79,7 +81,12 @@ app.post("/api/Trip/sendFeedback", (req, res) => {
 app.post("/api/Trip/delete", (req, res) => {
   deleteTrip(req, res, db);
 });
-
+app.post("/api/company/addCar", (req, res) => {
+  addCar(req, res, db);
+});
+app.post("/api/company/addDriver", (req, res) => {
+  addDriver(req, res, db);
+});
 // Get Methods
 
 app.get("/api/user/login", (req, res) => {
