@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   GridItem,
   Image,
@@ -14,6 +14,7 @@ import {
   useDisclosure,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 // Images
 import companyLogo from "./../../assets/companyLogo.jpeg";
@@ -21,6 +22,48 @@ import star from "./../../assets/star.png";
 
 function Company(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const compName = props.info.name;
+  const [rating, setRating] = useState("");
+  const [nbDrivers, setnbDriver] = useState("");
+  const [nbCars, setnbCars] = useState("");
+  const mobileNB = props.info.mobileNB;
+  const email = props.info.email;
+  const description = props.info.description;
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/company/nbCars", {
+        params: { companyID: props.info.companyID },
+      })
+      .then((res) => {
+        setnbCars(res.data[0].nbOfCar);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/company/nbDrivers", {
+        params: { companyID: props.info.companyID },
+      })
+      .then((res) => {
+        setnbDriver(res.data[0].nbOfDriver);
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/company/rating", {
+        params: { companyID: props.info.companyID },
+      })
+      .then((res) => {
+        if (res.data[0].rating === null) {
+          setRating("NA");
+        } else {
+          setRating(res.data[0].rating);
+        }
+      });
+  }, []);
 
   return (
     <GridItem>
@@ -37,7 +80,7 @@ function Company(props) {
               color="black"
               py="1"
             >
-              {props.name}
+              {compName}
             </Text>
             <Flex justifyContent="center" alignItems="center">
               <Image src={star} w="4" h="4" />
@@ -50,7 +93,7 @@ function Company(props) {
                 px="2"
                 pt="1"
               >
-                {props.rating}
+                {rating}
               </Text>
             </Flex>
           </Flex>
@@ -85,7 +128,7 @@ function Company(props) {
                     px="2"
                     pt="1"
                   >
-                    {props.rating}
+                    {rating}
                   </Text>
                 </Flex>
               </Flex>
@@ -105,7 +148,7 @@ function Company(props) {
                     color="white"
                     fontWeight="400"
                   >
-                    {props.name}
+                    {compName}
                   </Text>
                 </Flex>
                 <Flex>
@@ -123,7 +166,7 @@ function Company(props) {
                     color="white"
                     fontWeight="400"
                   >
-                    {props.mobileNB}
+                    {mobileNB}
                   </Text>
                 </Flex>
                 <Flex>
@@ -141,7 +184,7 @@ function Company(props) {
                     color="white"
                     fontWeight="400"
                   >
-                    {props.email}
+                    {email}
                   </Text>
                 </Flex>
                 <Flex>
@@ -159,7 +202,7 @@ function Company(props) {
                     color="white"
                     fontWeight="400"
                   >
-                    10
+                    {nbDrivers}
                   </Text>
                 </Flex>
                 <Flex>
@@ -177,7 +220,7 @@ function Company(props) {
                     color="white"
                     fontWeight="400"
                   >
-                    15
+                    {nbCars}
                   </Text>
                 </Flex>
                 <Text
@@ -194,7 +237,7 @@ function Company(props) {
                   color="white"
                   fontWeight="400"
                 >
-                  {props.description}
+                  {description}
                 </Text>
               </Flex>
             </Flex>

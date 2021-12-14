@@ -41,7 +41,6 @@ function BookingsList() {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setHistoryList(res.data);
         setHistoryDecrement(0.5 / res.data.length);
       });
