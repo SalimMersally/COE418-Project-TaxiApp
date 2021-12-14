@@ -25,7 +25,7 @@ import { AppContext } from "../../StateProvider";
 //Images
 import add from "./../../assets/add.png";
 
-function BookingModal() {
+function BookingModal({ refresh }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [state] = useContext(AppContext);
 
@@ -102,7 +102,6 @@ function BookingModal() {
         .then((res) => {
           SetfromLocationID(res.data[0]);
           SetToLocationID(res.data[1]);
-          console.log(res.data);
         });
     }
   }
@@ -142,6 +141,7 @@ function BookingModal() {
           if (res.data === "Trip registered successfully") {
             onClose();
             reset();
+            refresh();
           } else {
             setError(res.data);
           }
@@ -442,7 +442,9 @@ function BookingModal() {
               type="submit"
               _hover={{ bg: "#252525", color: "#FFC000" }}
               _active={{ bg: "black" }}
-              onClick={submit}
+              onClick={() => {
+                submit();
+              }}
             >
               Book
             </Button>

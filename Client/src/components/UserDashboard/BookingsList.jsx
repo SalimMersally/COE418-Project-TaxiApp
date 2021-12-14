@@ -6,6 +6,7 @@ import { AppContext } from "../../StateProvider";
 // Components
 import BookingItem from "./BookingItem";
 import BookingModal from "./BookingModal";
+import HistoryBookingItem from "./HistoryBookingItem";
 
 // Images
 import history from "./../../assets/history.png";
@@ -17,6 +18,7 @@ function BookingsList() {
   const [currentDecrement, setCurrentDecrement] = useState(0);
   const [historyDecrement, setHistoryDecrement] = useState(0);
   const [state] = useContext(AppContext);
+  const [refresh, setRefresh] = useState(true);
 
   let opacity = 1;
 
@@ -28,10 +30,10 @@ function BookingsList() {
         },
       })
       .then((res) => {
-        setCurrentList(res.data);
+        setCurrentList((old) => res.data);
         setCurrentDecrement(0.5 / res.data.length);
       });
-  }, [state]);
+  }, [state, refresh]);
 
   useEffect(() => {
     axios
@@ -41,10 +43,14 @@ function BookingsList() {
         },
       })
       .then((res) => {
-        setHistoryList(res.data);
+        setHistoryList((old) => res.data);
         setHistoryDecrement(0.5 / res.data.length);
       });
   }, [state]);
+
+  const ref = () => {
+    setRefresh((old) => !old);
+  };
 
   return (
     <Container maxW="container.lg" px="10" h="90vh" pt="4">
@@ -66,7 +72,7 @@ function BookingsList() {
               <Image src={history} w="8" h="8" mx="4" />
             </Box>
           </Tooltip>
-          <BookingModal />
+          <BookingModal refresh={ref} />
         </Flex>
       </Flex>
       <hr className="info" my="2" />
@@ -78,7 +84,7 @@ function BookingsList() {
                 opacity = 0.5;
               }
               return (
-                <BookingItem
+                <HistoryBookingItem
                   info={item}
                   key={item.tripID}
                   isHistory={true}
