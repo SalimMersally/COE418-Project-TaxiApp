@@ -44,7 +44,7 @@ function CompaniesList() {
           fontWeight="700"
           textAlign="left"
         >
-          Comapnies
+          Companies
         </Text>
         <Flex w="60%" justifyContent="flex-end">
           <Box w="40%">

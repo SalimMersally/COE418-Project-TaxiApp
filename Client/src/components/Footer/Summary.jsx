@@ -5,19 +5,12 @@ import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import facebook from "./../../assets/facebook.png";
 import instagram from "./../../assets/instagram.png";
 import twitter from "./../../assets/twitter.png";
+import logo from "./../../assets/logo.png";
 
 function Summary() {
   return (
     <Box w="30%">
-      <Text
-        fontFamily="roboto"
-        fontSize="6xl"
-        fontWeight="900"
-        color="white"
-        textAlign="left"
-      >
-        Taxi
-      </Text>
+      <Image src={logo} w={80} />
       <Text
         fontFamily="roboto"
         fontSize="sm"
@@ -30,7 +23,7 @@ function Summary() {
         companies, that can offer you high quality services anytime and anywhere
         without any problems.
       </Text>
-      <Flex py="6" alignItems="center">
+      <Flex py="2" alignItems="center">
         <a href="https://www.facebook.com" target="_blank" rel="noreferrer">
           <Image src={facebook} w="8" h="8" mr="2" />
         </a>

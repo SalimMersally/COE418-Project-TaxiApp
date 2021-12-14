@@ -14,6 +14,7 @@ import { useNavigate, Link } from "react-router-dom";
 // Images
 import userProfile from "./../../assets/userProfile.png";
 import companyLogo from "./../../assets/companyLogo.jpeg";
+import logo from "./../../assets/logo.png";
 
 function Navbar() {
   const [state] = useContext(AppContext);
@@ -35,64 +36,73 @@ function Navbar() {
   }, [state]);
 
   return (
-    <Flex as="header" zIndex="9999" w="100%" bg="black" pl="20" pr="4" py="4">
+    <Flex as="header" zIndex="9999" w="100%" bg="black" pl="10">
       <Center>
-        <Text color="gray.400">Logo</Text>
+        <Image src={logo} h={14} />
       </Center>
       <Spacer />
-      <ButtonGroup bg="transparent" variant="link" colorScheme="button" mr="2">
-        <Button mr="2">
-          <Link to="/">HOME</Link>
-        </Button>
-        <Button as="a" href="/about" mr="2">
-          <Link to="/about">ABOUT</Link>
-        </Button>
-        <Button as="a" href="/contact" mr="2">
-          <Link to="/contact">CONTACT</Link>
-        </Button>
-        {name ? (
-          <Flex>
-            <Text
-              fontSize="xl"
-              fontFamily="roboto"
-              color="white"
-              alignSelf="center"
-              lineHeight="1"
-              fontWeight="700"
-              mr="2"
-            >
-              <Link to="dashboard">{name}</Link>
-            </Text>
-            <Image
-              src={isCompany ? companyLogo : userProfile}
-              h="10"
-              w="10"
-              borderRadius="full"
-            />
-          </Flex>
-        ) : (
-          <Button as="a" href="/login" mr="2">
-            <Link to="/login">LOGIN</Link>
-          </Button>
-        )}
-      </ButtonGroup>
-      {name ? (
-        ""
-      ) : (
-        <Button
-          as="a"
-          href="/signup"
-          borderRadius="full"
+      <Flex pr="4" py="4">
+        <ButtonGroup
+          bg="transparent"
+          variant="link"
+          colorScheme="button"
           mr="2"
-          p="5"
-          bg="yellow.400"
-          color="black"
-          _hover={{ bg: "#FFC000", color: "black" }}
-          _active={{ bg: "#F4B700" }}
         >
-          <Link to="/signup">SIGN UP</Link>
-        </Button>
-      )}
+          <Button mr="2">
+            <Link to="/">HOME</Link>
+          </Button>
+          <Button as="a" href="/about" mr="2">
+            <Link to="/about">ABOUT</Link>
+          </Button>
+          <Button as="a" href="/contact" mr="2">
+            <Link to="/contact">CONTACT</Link>
+          </Button>
+          {name ? (
+            <Flex>
+              <Text
+                fontSize="xl"
+                fontFamily="roboto"
+                color="white"
+                alignSelf="center"
+                lineHeight="1"
+                fontWeight="700"
+                mr="2"
+              >
+                <Link to="dashboard">{name}</Link>
+              </Text>
+              <Image
+                src={isCompany ? companyLogo : userProfile}
+                h="10"
+                w="10"
+                borderRadius="full"
+              />
+            </Flex>
+          ) : (
+            <Button as="a" href="/login" mr="2">
+              <Link to="/login">LOGIN</Link>
+            </Button>
+          )}
+        </ButtonGroup>
+        {name ? (
+          ""
+        ) : (
+          <Flex alignItems="center">
+            <Button
+              as="a"
+              href="/signup"
+              borderRadius="full"
+              mr="2"
+              p="5"
+              bg="yellow.400"
+              color="black"
+              _hover={{ bg: "#FFC000", color: "black" }}
+              _active={{ bg: "#F4B700" }}
+            >
+              <Link to="/signup">SIGN UP</Link>
+            </Button>
+          </Flex>
+        )}
+      </Flex>
     </Flex>
   );
 }

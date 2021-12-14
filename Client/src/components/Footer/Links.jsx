@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 function Links() {
   return (
@@ -22,36 +23,8 @@ function Links() {
               fontFamily="roboto"
               fontWeight="300"
               color="gray.300"
-              as="a"
-              href="/"
             >
-              <span>ᐳ</span>&nbsp; HOME
-            </Text>
-          </Box>
-          <hr className="footer" />
-          <Box py="2">
-            <Text
-              fontSize="sm"
-              fontFamily="roboto"
-              fontWeight="300"
-              color="gray.300"
-              as="a"
-              href="/contact"
-            >
-              <span>ᐳ</span>&nbsp; CONTACT
-            </Text>
-          </Box>
-          <hr className="footer" />
-          <Box py="2">
-            <Text
-              fontSize="sm"
-              fontFamily="roboto"
-              fontWeight="300"
-              color="gray.300"
-              as="a"
-              href="/"
-            >
-              <span>ᐳ</span>&nbsp; TOP COMPANIES
+              <span>ᐳ</span>&nbsp; <Link to="/">HOME</Link>
             </Text>
           </Box>
           <hr className="footer" />
@@ -63,7 +36,29 @@ function Links() {
               color="gray.300"
               as="a"
             >
-              <span>ᐳ</span>&nbsp; LOG OUT
+              <span>ᐳ</span>&nbsp; <Link to="/contact">CONTACT</Link>
+            </Text>
+          </Box>
+          <hr className="footer" />
+          <Box py="2">
+            <Text
+              fontSize="sm"
+              fontFamily="roboto"
+              fontWeight="300"
+              color="gray.300"
+            >
+              <span>ᐳ</span>&nbsp; <Link to="/">TOP COMPANIES</Link>
+            </Text>
+          </Box>
+          <hr className="footer" />
+          <Box py="2">
+            <Text
+              fontSize="sm"
+              fontFamily="roboto"
+              fontWeight="300"
+              color="gray.300"
+            >
+              <span>ᐳ</span>&nbsp; <Link to="/">LOG OUT</Link>
             </Text>
           </Box>
           <hr className="footer" />
@@ -75,10 +70,8 @@ function Links() {
               fontFamily="roboto"
               fontWeight="300"
               color="gray.300"
-              as="a"
-              href="/about"
             >
-              <span>ᐳ</span>&nbsp; ABOUT
+              <span>ᐳ</span>&nbsp; <Link to="/">ABOUT</Link>
             </Text>
           </Box>
           <hr className="footer" />
@@ -88,10 +81,8 @@ function Links() {
               fontFamily="roboto"
               fontWeight="300"
               color="gray.300"
-              as="a"
-              href="/"
             >
-              <span>ᐳ</span>&nbsp; SUBMIT FEEDBACK
+              <span>ᐳ</span>&nbsp;<Link to="/">SUBMIT FEEDBACK</Link>
             </Text>
           </Box>
           <hr className="footer" />
@@ -101,10 +92,8 @@ function Links() {
               fontFamily="roboto"
               fontWeight="300"
               color="gray.300"
-              as="a"
-              href="/signup"
             >
-              <span>ᐳ </span>&nbsp; SIGN UP
+              <span>ᐳ </span>&nbsp; <Link to="/signup">SIGN UP</Link>
             </Text>
           </Box>
           <hr className="footer" />
@@ -114,10 +103,8 @@ function Links() {
               fontFamily="roboto"
               fontWeight="300"
               color="gray.300"
-              as="a"
-              href="/login"
             >
-              <span>ᐳ</span>&nbsp; LOG IN
+              <span>ᐳ</span>&nbsp; <Link to="/login">LOG IN</Link>
             </Text>
           </Box>
           <hr className="footer" />
