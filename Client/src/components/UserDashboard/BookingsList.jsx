@@ -103,6 +103,7 @@ function BookingsList() {
                   key={item.tripID}
                   isHistory={false}
                   opacity={opacity}
+                  refresh={ref}
                 />
               );
             })}

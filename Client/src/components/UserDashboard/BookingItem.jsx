@@ -125,7 +125,7 @@ function BookingItem(props) {
         ) : (
           <>
             <EditBookingModal info={props.info} />
-            <DeleteModal />
+            <DeleteModal id={props.info.tripID} refresh={props.refresh} />
           </>
         )}
       </Flex>
