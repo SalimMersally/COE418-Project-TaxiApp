@@ -8,7 +8,12 @@ const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
 const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
 const { getAllCompanies, getDrivers, getCars } = require("./routes/company");
-const { getAllCurrentTrips, getAllPastTrips } = require("./routes/trip");
+const {
+  getAllCurrentTrips,
+  getAllPastTrips,
+  addGetLocation,
+  addTrip,
+} = require("./routes/trip");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -41,6 +46,18 @@ app.post("/api/company/signup", (req, res) => {
   signUpCompany(req, res, db);
 });
 
+app.post("/api/getAddLocation", (req, res) => {
+  addGetLocation(req, res, db);
+});
+
+app.post("/api/addTrip", (req, res) => {
+  addTrip(req, res, db);
+});
+//
+//
+///// here starts everything related to the get method
+//
+//
 app.get("/api/user/login", (req, res) => {
   logInUser(req, res, db);
 });
