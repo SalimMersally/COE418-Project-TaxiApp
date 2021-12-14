@@ -7,13 +7,21 @@ const mysql = require("mysql");
 const { logInUser, logInCompany } = require("./routes/logIn");
 const { signUpUser, signUpCompany } = require("./routes/signUp");
 const { editUserInfo, editCompanyInfo } = require("./Routes/editInfo");
-const { getAllCompanies, getDrivers, getCars } = require("./routes/company");
+const {
+  getAllCompanies,
+  getDrivers,
+  getCars,
+  nbCars,
+  nbDrivers,
+} = require("./routes/company");
 const {
   getAllCurrentTrips,
   getAllPastTrips,
   addGetLocation,
   addTrip,
   updateTrip,
+  sendFeedback,
+  viewFeedback,
 } = require("./routes/trip");
 
 const db = mysql.createConnection({
@@ -57,6 +65,9 @@ app.post("/api/Trip/add", (req, res) => {
 app.post("/api/Trip/update", (req, res) => {
   updateTrip(req, res, db);
 });
+app.post("/api/Trip/sendFeedback", (req, res) => {
+  sendFeedback(req, res, db);
+});
 //
 //
 ///// here starts everything related to the get method
@@ -87,6 +98,16 @@ app.get("/api/company/drivers", (req, res) => {
 
 app.get("/api/company/cars", (req, res) => {
   getCars(req, res, db);
+});
+
+app.get("/api/company/nbCars", (req, res) => {
+  nbCars(req, res, db);
+});
+app.get("/api/company/nbDrivers", (req, res) => {
+  nbDrivers(req, res, db);
+});
+app.get("/api/Trip/viewFeedback", (req, res) => {
+  viewFeedback(req, res, db);
 });
 
 app.listen(3001, () => {
