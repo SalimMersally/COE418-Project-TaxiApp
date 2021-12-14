@@ -13,6 +13,7 @@ const {
   getCars,
   nbCars,
   nbDrivers,
+  rating,
 } = require("./routes/company");
 const {
   getAllCurrentTrips,
@@ -22,6 +23,7 @@ const {
   updateTrip,
   sendFeedback,
   viewFeedback,
+  deleteTrip,
 } = require("./routes/trip");
 
 const db = mysql.createConnection({
@@ -72,6 +74,9 @@ app.post("/api/Trip/update", (req, res) => {
 app.post("/api/Trip/sendFeedback", (req, res) => {
   sendFeedback(req, res, db);
 });
+app.post("/api/Trip/delete", (req, res) => {
+  deleteTrip(req, res, db);
+});
 
 // Get Methods
 
@@ -107,6 +112,9 @@ app.get("/api/company/nbCars", (req, res) => {
 });
 app.get("/api/company/nbDrivers", (req, res) => {
   nbDrivers(req, res, db);
+});
+app.get("/api/company/rating", (req, res) => {
+  rating(req, res, db);
 });
 app.get("/api/Trip/viewFeedback", (req, res) => {
   viewFeedback(req, res, db);

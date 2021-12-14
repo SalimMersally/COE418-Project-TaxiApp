@@ -148,4 +148,13 @@ module.exports = {
       res.send(result);
     });
   },
+
+  deleteTrip: (req, res, db) => {
+    const tripID = req.body.tripID;
+    const sqlDelete = "DELETE FROM TRIP WHERE tripID = ?; ";
+    db.query(sqlDelete, [tripID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
 };
