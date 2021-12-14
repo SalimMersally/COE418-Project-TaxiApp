@@ -35,10 +35,13 @@ function BookingsList() {
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/api/trip/past", {
-        clientID: state.user[0].clientID,
+      .get("http://localhost:3001/api/trip/past", {
+        params: {
+          clientID: state.user[0].clientID,
+        },
       })
       .then((res) => {
+        console.log(res.data);
         setHistoryList(res.data);
         setHistoryDecrement(0.5 / res.data.length);
       });
