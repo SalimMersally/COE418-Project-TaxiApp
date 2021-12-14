@@ -73,7 +73,7 @@ module.exports = {
         firstName,
         lastName,
         mobileNB,
-        drivingLicenseNB,
+        driverLicenseNB,
         companyID,
       ],
       (err, result) => {
@@ -136,6 +136,14 @@ module.exports = {
     const sqlSelect =
       "SELECT AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP WHERE companyID = ?";
     db.query(sqlSelect, [companyID], function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
+  rank: (req, res, db) => {
+    const sqlSelect =
+      "SELECT companyID, AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP ORDER BY rating DESC";
+    db.query(sqlSelect, function (err, result) {
       console.log(err);
       res.send(result);
     });

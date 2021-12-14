@@ -13,9 +13,13 @@ const {
   getCars,
   addCar,
   addDriver,
+  deleteCar,
+  deleteDriver,
+  driverLeftWork,
   nbCars,
   nbDrivers,
   rating,
+  rank,
 } = require("./routes/company");
 const {
   getAllCurrentTrips,
@@ -87,6 +91,15 @@ app.post("/api/company/addCar", (req, res) => {
 app.post("/api/company/addDriver", (req, res) => {
   addDriver(req, res, db);
 });
+app.post("/api/company/deleteDriver", (req, res) => {
+  deleteDriver(req, res, db);
+});
+app.post("/api/company/DriverLeft", (req, res) => {
+  driverLeftWork(req, res, db);
+});
+app.post("/api/company/deleteCar", (req, res) => {
+  deleteCar(req, res, db);
+});
 // Get Methods
 
 app.get("/api/user/login", (req, res) => {
@@ -133,6 +146,9 @@ app.get("/api/company/rating", (req, res) => {
 });
 app.get("/api/Trip/viewFeedback", (req, res) => {
   viewFeedback(req, res, db);
+});
+app.get("/api/company/rank", (req, res) => {
+  rank(req, res, db);
 });
 
 // Start Server
