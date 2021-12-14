@@ -322,7 +322,13 @@ function BookingModal({ refresh }) {
                   borderRadius="0"
                   borderWidth="0"
                   type="date"
-                  min={now.toISOString().substring(0, 10)}
+                  min={
+                    now.getFullYear() +
+                    "-" +
+                    (now.getMonth() + 1) +
+                    "-" +
+                    now.getDate()
+                  }
                   onChange={(e) => {
                     setDate(e.target.value);
                   }}
