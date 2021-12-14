@@ -17,54 +17,57 @@ module.exports = {
       res.send(result);
     });
   },
-
-  //// the following section is related to everythng concerning the trip
-  /// we need to check if location exists and fetch its id, if null add a new location then fetch ID
-
-  addGetLocation: (req, res, db) => {
+  getLocationID: (req, res, db) => {
     const fromCity = req.body.fromCity;
     const fromStreet = req.body.fromStreet;
     const fromBuilding = req.body.fromBuilding;
-    const sqlInsert =
-      "INSERT INTO LOCATION (city, building, street) VALUES (?,?,?);";
-    db.query(sqlInsert, [fromCity, fromBuilding, fromStreet], (err, result) => {
-      console.log(err);
-      if (result !== null) {
-        const fromLocationID = req.query.fromLocationID;
-        const sqlGet =
-          " SELECT locationID FROM LOCATION WHERE city = ? AND building = ? AND street = ?; ";
-        db.query(
-          sqlGet,
-          [fromCity, fromBuilding, fromStreet],
-          function (err1, result1) {
-            console.log(err1);
-            res.send(fromLocationID);
-          }
-        );
-      }
-    });
     const toCity = req.body.toCity;
     const toStreet = req.body.toStreet;
     const toBuilding = req.body.toBuilding;
+    const ID = [];
 
-    db.query(sqlInsert, [toCity, toBuilding, toStreet], (err, result) => {
-      console.log(err);
-      if (result !== null) {
-        const toLocationID = req.query.toLocationID;
-        const sqlGet =
-          " SELECT locationID FROM LOCATION WHERE city = ? AND building = ? AND street = ?; ";
+    const sqlInsert =
+      "INSERT INTO LOCATION (city, building, street) VALUES (?,?,?);";
+    const sqlGet =
+      " SELECT locationID FROM LOCATION WHERE city = ? AND building = ? AND street = ?; ";
+
+    db.query(sqlGet, [fromCity, fromBuilding, fromStreet], (err1, result1) => {
+      console.log(err1);
+      if (result1.length !== 0) {
+        ID.push(result1[0].locationID);
+        getTo();
+      } else {
         db.query(
-          sqlGet,
-          [toCity, toBuilding, toStreet],
-          function (err1, result1) {
-            console.log(err1);
-            res.send(toLocationID);
+          sqlInsert,
+          [fromCity, fromBuilding, fromStreet],
+          (err2, result2) => {
+            console.log(err2);
+            ID.push(result2.insertId);
+            getTo();
           }
         );
       }
     });
+    function getTo() {
+      db.query(sqlGet, [toCity, toBuilding, toStreet], (err1, result1) => {
+        console.log(err1);
+        if (result1.length !== 0) {
+          ID.push(result1[0].locationID);
+          res.send(ID);
+        } else {
+          db.query(
+            sqlInsert,
+            [toCity, toBuilding, toStreet],
+            (err2, result2) => {
+              console.log(err2);
+              ID.push(result2.insertId);
+              res.send(ID);
+            }
+          );
+        }
+      });
+    }
   },
-
   addTrip: (req, res, db) => {
     const fromLocationID = req.body.fromLocationID;
     const toLocationID = req.body.toLocationID;

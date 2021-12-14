@@ -37,7 +37,6 @@ function SignUpComp() {
 
   function submitUser() {
     if (error === "" && error2 === "") {
-      console.log("sigining");
       axios
         .post("http://localhost:3001/api/company/signup", {
           name: compNameRef.current.value,
