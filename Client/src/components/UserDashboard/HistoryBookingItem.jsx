@@ -1,63 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Box, Flex, Image, Text, Tooltip } from "@chakra-ui/react";
-import axios from "axios";
 
 // Components
 import DeleteModal from "./DeleteModal";
 import SendFeedbackModal from "./SendFeedbackModal";
 import EditBookingModal from "./EditBookingModal";
 
-function BookingItem(props) {
+function HistoryBookingItem(props) {
   const from =
-    props.info.FCity + " " + props.info.FBuilding + " " + props.info.FStreet;
+    props.info.FCity + " " + props.info.FBuilding + "" + props.info.FStreet;
   const to =
-    props.info.TCity + " " + props.info.TBuilding + " " + props.info.TStreet;
-  const time = props.info.time;
-  const Date = props.info.date.substring(0, 10);
+    props.info.tCity + " " + props.info.tBuilding + "" + props.info.tStreet;
+  const time = props.info.Time;
+  const Date = props.info.Date.substring(0, 9);
   const compName = props.info.company;
+  const driverName = props.info.firstName + " " + props.info.lastName;
+  const carModel = props.info.manifacturerCompany + " " + props.info.model;
   const compNb = props.info.CNumber;
-  const [driverName, setDriverName] = useState("");
-  const [carModel, setCarModel] = useState("");
-  const [driverNb, setDriverNb] = useState("");
-  const [carNb, setCarNb] = useState("");
+  const driverNb = props.info.DNumber;
+  const carNb =
+    props.info.licenseChar + "" + props.info.licenseNB + " " + props.info.color;
   const luggages = props.info.numberOfPackages;
   const seats = props.info.nbOfSeat;
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/trip/current/car", {
-        params: {
-          tripID: props.info.tripID,
-        },
-      })
-      .then((res) => {
-        if (res.data.length !== 0) {
-          setCarModel(
-            res.data[0].manifacturerCompany +
-              " " +
-              res.data[0].model +
-              " " +
-              res.data[0].color
-          );
-          setCarNb(res.data[0].licenseChar + " " + res.data[0].licenseNB);
-        }
-      });
-  }, [props.tripID]);
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/trip/current/driver", {
-        params: {
-          tripID: props.info.tripID,
-        },
-      })
-      .then((res) => {
-        if (res.data.length !== 0) {
-          setDriverName(res.data[0].firstName + " " + res.data[0].lastName);
-          setDriverNb(res.data[0].mobileNB);
-        }
-      });
-  }, [props.tripID]);
 
   let sx;
   if (props.isHistory) {
@@ -133,4 +97,4 @@ function BookingItem(props) {
   );
 }
 
-export default BookingItem;
+export default HistoryBookingItem;

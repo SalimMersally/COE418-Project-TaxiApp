@@ -2,7 +2,7 @@ module.exports = {
   getAllCurrentTrips: (req, res, db) => {
     const clientID = req.query.clientID;
     const sqlSelect =
-      "SELECT  LF., TF. ,T.time, T.date, T.numberOfPackages, T.nbOfSeat, C.name FROM location LF, trip T , location TF , COMPANY C WHERE  LF.locationID = T.fromLocationID AND T.toLocationID = TF.locationID AND C.companyID = T.companyID AND clientID = ?;";
+      "SELECT  T.tripID, LF.city AS FCity, LF.building AS FBuilding, LF.street AS FStreet, TF.city AS TCity, TF.building AS TBuilding, LF.street AS TStreet,T.time, T.date, T.numberOfPackages, T.nbOfSeat, C.name AS company, C.mobileNB AS CNumber FROM location LF, trip T , location TF , COMPANY C WHERE  LF.locationID = T.fromLocationID AND T.toLocationID = TF.locationID AND C.companyID = T.companyID AND clientID = ? AND T.date > CURRENT_DATE() ORDER BY T.date";
     db.query(sqlSelect, [clientID], function (err, result) {
       console.log(err);
       res.send(result);

@@ -32,7 +32,7 @@ function EditBookingModal(props) {
   const [toBuidling, setToBuidling] = useState(props.info.tBuilding);
   const [toStreet, setToStreet] = useState(props.info.tStreet);
   const [time, setTime] = useState(props.info.Time);
-  const [date, setDate] = useState(props.info.Date.substring(0, 9));
+  const [date, setDate] = useState(props.info.Date);
   const [compName, setCompName] = useState(props.info.company);
   const [luggages, setLuggages] = useState(props.info.numberOfPackages);
   const [seats, setSeats] = useState(props.info.nbOfSeat);
