@@ -1,33 +1,75 @@
-import React from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
+  ModalFooter,
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Button,
+  Tooltip,
   Text,
+  Textarea,
   Box,
+  Slider,
+  SliderTrack,
+  SliderFilledTrack,
+  SliderThumb,
+  Image,
 } from "@chakra-ui/react";
+import { AppContext } from "../../StateProvider";
+import axios from "axios";
 
-function SeeFeedbackModal() {
+// Images
+import star from "./../../assets/star.png";
+
+function SeeFeedbackModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [state] = useContext(AppContext);
+  const [feedback, setFeedback] = useState({ text: "", rate: "" });
+  const [isFeedback, setIsFeedback] = useState(false);
+  const [rate, setRate] = useState(1);
+  const [text, setText] = useState("");
+  const [refresh, setRefresh] = useState(true);
+
+  useEffect(() => {
+    console.log(props.id);
+    axios
+      .get("http://localhost:3001/api/Trip/viewFeedbackCompany", {
+        params: { ID: props.id },
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data.length === 0) {
+          setFeedback({ text: "", rate: "" });
+        } else {
+          setFeedback(res.data[0]);
+          setIsFeedback(true);
+        }
+      });
+  }, [refresh]);
 
   return (
     <>
-      <Box as="button">
-        <Text
-          onClick={onOpen}
-          fontSize="sm"
-          color="#F5B301"
-          fontFamily="roboto"
-          fontWeight="700"
-        >
-          See Feedback
-        </Text>
-      </Box>
-
+      <Tooltip hasArrow label={isFeedback ? "view" : ""} bg="gray.400">
+        <Box as="button">
+          <Text
+            onClick={() => {
+              if (isFeedback) {
+                onOpen();
+              }
+            }}
+            fontSize="sm"
+            color="#F5B301"
+            fontFamily="roboto"
+            fontWeight="700"
+          >
+            {isFeedback ? "View Feedback" : "No Feedback"}
+          </Text>
+        </Box>
+      </Tooltip>
       <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
         <ModalOverlay />
         <ModalContent bg="gray.400">
@@ -38,7 +80,7 @@ function SeeFeedbackModal() {
               color="black"
               fontWeight="700"
             >
-              Check User feedback on this trip
+              "Feedback on this Trip"
             </Text>
           </ModalHeader>
           <ModalCloseButton />
@@ -51,23 +93,38 @@ function SeeFeedbackModal() {
             >
               Message:
             </Text>
+            {isFeedback ? (
+              <Text
+                fontSize="lg"
+                fontFamily="roboto"
+                color="black"
+                fontWeight="400"
+              >
+                {feedback.text}
+              </Text>
+            ) : (
+              ""
+            )}
             <Text
-              fontSize="md"
+              fontSize="lg"
               fontFamily="roboto"
               color="black"
-              fontWeight="400"
+              fontWeight="700"
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-              dictum lacus at sem rhoncus ultricies. Vestibulum porttitor diam
-              in tellus tincidunt convallis. Nunc ac scelerisque odio. Cras id
-              massa orci. In pulvinar blandit magna id sollicitudin. In hac
-              habitasse platea dictumst. Nam lobortis sit amet purus gravida
-              tincidunt. Donec vel ultricies mi. Maecenas imperdiet, lacus ac
-              tincidunt ultrices, purus ipsum convallis eros, et semper dolor
-              augue nec dolor. Orci varius natoque penatibus et magnis dis
-              parturient montes, nascetur ridiculus mus. Mauris eget turpis
-              neque.
+              Rating:
             </Text>
+            {isFeedback ? (
+              <Text
+                fontSize="lg"
+                fontFamily="roboto"
+                color="black"
+                fontWeight="400"
+              >
+                {feedback.rate}
+              </Text>
+            ) : (
+              ""
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>

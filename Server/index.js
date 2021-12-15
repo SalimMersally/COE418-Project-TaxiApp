@@ -29,6 +29,7 @@ const {
   updateTrip,
   sendFeedback,
   viewFeedback,
+  viewFeedbackCompany,
   deleteTrip,
 } = require("./routes/trip");
 const {
@@ -139,15 +140,23 @@ app.get("/api/company/cars", (req, res) => {
 app.get("/api/company/nbCars", (req, res) => {
   nbCars(req, res, db);
 });
+
 app.get("/api/company/nbDrivers", (req, res) => {
   nbDrivers(req, res, db);
 });
+
 app.get("/api/company/rating", (req, res) => {
   rating(req, res, db);
 });
+
 app.get("/api/Trip/viewFeedback", (req, res) => {
   viewFeedback(req, res, db);
 });
+
+app.get("/api/Trip/viewFeedbackCompany", (req, res) => {
+  viewFeedbackCompany(req, res, db);
+});
+
 app.get("/api/company/rank", (req, res) => {
   rank(req, res, db);
 });
