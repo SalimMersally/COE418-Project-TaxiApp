@@ -15,12 +15,28 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 //Images
 import close from "./../../assets/close.png";
 
-function DeleteModal() {
+function DeleteModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  function submit() {
+    console.log(props.companyID);
+    axios
+      .post("http://localhost:3001/api/company/DriverLeft", {
+        companyID: props.companyID,
+        drivingLicenseNB: props.drivingLicenseNB,
+      })
+      .then((res) => {
+        if (res.data === "deleted") {
+          onClose();
+          props.refresh();
+        }
+      });
+  }
 
   return (
     <>
@@ -50,12 +66,6 @@ function DeleteModal() {
               Are you sure you want to delete this Driver?
             </Text>
           </ModalHeader>
-          <ModalBody>
-            <Flex>
-              <Checkbox colorScheme="red" color="black"></Checkbox>
-              <Text mx="2">Delete also from Database</Text>
-            </Flex>
-          </ModalBody>
           <ModalFooter>
             <Flex justifyContent="center" w="100%">
               <Button
@@ -67,6 +77,7 @@ function DeleteModal() {
                 _hover={{ bg: "#252525", color: "red" }}
                 _active={{ bg: "black" }}
                 mr="4"
+                onClick={submit}
               >
                 Delete
               </Button>

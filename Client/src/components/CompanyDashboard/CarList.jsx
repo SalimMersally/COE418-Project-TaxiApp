@@ -43,7 +43,11 @@ function CarList() {
       <Box overflowY="auto" h="85%" my="2">
         <Flex direction="column" justifyContent="center" w="100%">
           {cars.map((item) => (
-            <CarItem info={item} key={item.licenseChar + item.licenseNB} />
+            <CarItem
+              info={item}
+              key={item.licenseChar + item.licenseNB}
+              refresh={ref}
+            />
           ))}
         </Flex>
       </Box>

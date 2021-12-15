@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -16,12 +16,55 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 //Images
 import add from "./../../assets/add.png";
 
-function AddDriverModal() {
+function AddDriverModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [mobileNB, setMobileNB] = useState("");
+  const [license, setLicense] = useState("");
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (
+      firstName === "" ||
+      lastName === "" ||
+      mobileNB === "" ||
+      license === ""
+    ) {
+      setError("Please fill all values");
+    } else {
+      setError("");
+    }
+  }, [firstName, lastName, mobileNB, license]);
+
+  function submit() {
+    if (error === "") {
+      console.log(props.companyID);
+      axios
+        .post("http://localhost:3001/api/company/addDriver", {
+          driverLicenseNB: license,
+          firstName: firstName,
+          lastName: lastName,
+          mobileNB: mobileNB,
+          companyID: props.companyID,
+        })
+        .then((res) => {
+          if (res.data === "added") {
+            onClose();
+            props.refresh();
+          } else {
+            setError(res.data);
+          }
+        });
+    }
+  }
 
   return (
     <>
@@ -46,6 +89,14 @@ function AddDriverModal() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Text
+              fontFamily="roboto"
+              fontSize="sm"
+              fontWeight="400"
+              color="red"
+            >
+              {error}
+            </Text>
             <Flex mb="2" justifyContent="space-between">
               <Text
                 fontSize="lg"
@@ -64,6 +115,7 @@ function AddDriverModal() {
                 borderRadius="0"
                 borderWidth="0"
                 w="70%"
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -84,6 +136,7 @@ function AddDriverModal() {
                 borderRadius="0"
                 borderWidth="0"
                 w="70%"
+                onChange={(e) => setLastName(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -105,6 +158,7 @@ function AddDriverModal() {
                 borderWidth="0"
                 w="70%"
                 type="number"
+                onChange={(e) => setMobileNB(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -126,6 +180,7 @@ function AddDriverModal() {
                 borderWidth="0"
                 w="70%"
                 type="number"
+                onChange={(e) => setLicense(e.target.value)}
               />
             </Flex>
           </ModalBody>
@@ -138,6 +193,7 @@ function AddDriverModal() {
               type="submit"
               _hover={{ bg: "#252525", color: "#FFC000" }}
               _active={{ bg: "black" }}
+              onClick={submit}
             >
               Add
             </Button>

@@ -54,7 +54,11 @@ function DriverItem(props) {
             </Text>
           </Flex>
         </Box>
-        <DeleteDriverModal />
+        <DeleteDriverModal
+          refresh={props.refresh}
+          companyID={props.companyID}
+          drivingLicenseNB={props.info.drivingLicenseNB}
+        />
       </Flex>
       <hr className="infoPoints" />
     </Box>

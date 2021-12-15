@@ -70,46 +70,56 @@ module.exports = {
     const mobileNB = req.body.mobileNB;
     const companyID = req.body.companyID;
 
-    const sqlInsert =
-      "INSERT INTO DRIVER (drivingLicenseNB, firstName, lastName, mobileNB) VALUES (?,?,?,?); INSERT INTO WORKFOR (drivingLicenseNB, companyID, dateFrom, dateTo) VALUES (?,?,CURRENT_DATE(),NULL)";
-    db.query(
-      sqlInsert,
-      [driverLicenseNB, firstName, lastName, mobileNB, companyID],
-      (err, result) => {
-        console.log(err);
-        if (result !== null) {
-          res.send("Driver added successfully");
-        }
+    const sqlselect = "SELECT * FROM driver WHERE drivingLicenseNB = ?";
+    db.query(sqlselect, [driverLicenseNB], (err, result) => {
+      console.log(err);
+      console.log(result);
+      if (result.length !== 0) {
+        sqlAddWork = "INSERT INTO WORKFOR VALUES (?,?,CURRENT_DATE(),NULL)";
+        db.query(sqlAddWork, [driverLicenseNB, companyID], (err2, result2) => {
+          console.log(err2);
+          console.log(result2);
+          if (result2.length !== 0) {
+            res.send("added");
+          }
+        });
+      } else {
+        const sqlInsert = "INSERT INTO DRIVER VALUES (?,?,?,?)";
+        db.query(
+          sqlInsert,
+          [driverLicenseNB, firstName, lastName, mobileNB],
+          (err3, result3) => {
+            console.log(err3);
+            console.log(result3);
+            if (result3.length !== 0) {
+              const sqlAddWork =
+                " INSERT INTO WORKFOR VALUES (?,?,CURRENT_DATE(),NULL)";
+              db.query(
+                sqlAddWork,
+                [driverLicenseNB, companyID],
+                (err4, result4) => {
+                  console.log(err4);
+                  if (result4.length !== 0) {
+                    res.send("added");
+                  }
+                }
+              );
+            }
+          }
+        );
       }
-    );
-  },
-  //delete car, delete Driver/ Driver left work
-
-  deleteCar: (req, res, db) => {
-    const licenseChar = req.body.licenseChar;
-    const licenseNB = req.body.licenseNB;
-    const sqlDelete =
-      "DELETE FROM CAR WHERE licenseChar = ? AND licenseNB = ?; "; //Note: change in DB for foreign keys --> on delete set default
-    db.query(sqlDelete, [licenseChar, licenseNB], function (err, result) {
-      console.log(err);
-      res.send(result);
-    });
-  },
-  deleteDriver: (req, res, db) => {
-    const drivingLicenseNB = req.body.drivingLicenseNB;
-    const sqlDelete = "DELETE FROM DRIVER WHERE drivingLicenseNB = ?; "; //Note: change in DB for foreign keys --> on delete set cascade
-    db.query(sqlDelete, [drivingLicenseNB], function (err, result) {
-      console.log(err);
-      res.send(result);
     });
   },
   driverLeftWork: (req, res, db) => {
     const drivingLicenseNB = req.body.drivingLicenseNB;
+    const companyID = req.body.companyID;
     const sqlDelete =
-      "UPDATE workFor SET dateTo = Current_date() WHERE drivingLicenseNB = ?; "; //Note: change in DB for foreign keys --> on delete set cascade
-    db.query(sqlDelete, [drivingLicenseNB], function (err, result) {
+      "UPDATE workFor SET dateTo = Current_date() WHERE drivingLicenseNB = ? AND companyID = ? ";
+    db.query(sqlDelete, [drivingLicenseNB, companyID], function (err, result) {
       console.log(err);
-      res.send(result);
+      if (result.length !== 0) {
+        res.send("deleted");
+      }
     });
   },
 

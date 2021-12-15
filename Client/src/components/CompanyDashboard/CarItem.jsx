@@ -1,9 +1,6 @@
 import React from "react";
 import { Box, Flex, Text } from "@chakra-ui/react";
 
-// Components
-import DeleteCarModal from "./DeleteCarModal";
-
 function CarItem(props) {
   const company = props.info.manifacturerCompany;
   const model = props.info.model;
@@ -95,7 +92,6 @@ function CarItem(props) {
             </Text>
           </Flex>
         </Box>
-        <DeleteCarModal />
       </Flex>
       <hr className="infoPoints" />
     </Box>

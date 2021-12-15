@@ -18,6 +18,7 @@ import AddDriverModal from "./AddDriverModal";
 function DriverList() {
   const [drivers, setDrivers] = useState([]);
   const [state] = useContext(AppContext);
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     axios
@@ -25,10 +26,13 @@ function DriverList() {
         params: { companyID: state.company[0].companyID },
       })
       .then((res) => {
-        console.log(res.data);
         setDrivers(res.data);
       });
-  }, []);
+  }, [refresh]);
+
+  const ref = () => {
+    setRefresh((old) => !old);
+  };
 
   return (
     <Container maxW="container.lg" px="10" h="90vh" py="2" w="50%">
@@ -41,13 +45,18 @@ function DriverList() {
         >
           Drivers
         </Text>
-        <AddDriverModal />
+        <AddDriverModal refresh={ref} companyID={state.company[0].companyID} />
       </Flex>
       <hr className="info" my="2" />
       <Box overflowY="auto" h="85%" my="2">
         <Flex direction="column" justifyContent="center" w="100%">
           {drivers.map((item) => (
-            <DriverItem info={item} key={item.drivingLicenseNB} />
+            <DriverItem
+              info={item}
+              key={item.drivingLicenseNB}
+              companyID={state.company[0].companyID}
+              refresh={ref}
+            />
           ))}
         </Flex>
       </Box>
