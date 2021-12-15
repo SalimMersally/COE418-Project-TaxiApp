@@ -139,4 +139,12 @@ module.exports = {
       res.send(result);
     });
   },
+  rank: (req, res, db) => {
+    const sqlSelect =
+      "SELECT companyID, AVG(rate) as rating FROM FEEDBACK NATURAL JOIN TRIP ORDER BY rating DESC";
+    db.query(sqlSelect, function (err, result) {
+      console.log(err);
+      res.send(result);
+    });
+  },
 };
