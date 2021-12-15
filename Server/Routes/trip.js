@@ -126,7 +126,7 @@ module.exports = {
     const Time = req.body.time;
     const tripID = req.body.tripID;
     const sqlUpdate =
-      "UPDATE TRIP SET Date = ? AND Time = ? AND Description = ? WHERE tripID = ?;";
+      "UPDATE TRIP SET Date = ?, Time = ?, Description = ? WHERE tripID = ?;";
     db.query(sqlUpdate, [Date, Time, Description, tripID], (err, result) => {
       console.log(err);
       if (result !== null) {

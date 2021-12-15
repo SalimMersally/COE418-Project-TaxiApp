@@ -7,12 +7,14 @@ module.exports = {
     });
   },
   getDrivers: (req, res, db) => {
+    console.log(req.query);
     const companyID = req.query.companyID;
     const sqlSelect =
       "SELECT D.* FROM DRIVER D, WORKFOR W, COMPANY C WHERE C.companyID = W.companyID AND D.drivingLicenseNB = W.drivingLicenseNB AND W.dateTo IS NULL AND C.companyID = ?";
     db.query(sqlSelect, [companyID], function (err, result) {
       console.log(err);
       res.send(result);
+      console.log(result);
     });
   },
   getCars: (req, res, db) => {

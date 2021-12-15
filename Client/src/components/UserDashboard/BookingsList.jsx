@@ -46,7 +46,7 @@ function BookingsList() {
         setHistoryList((old) => res.data);
         setHistoryDecrement(0.5 / res.data.length);
       });
-  }, [state]);
+  }, [state, refresh]);
 
   const ref = () => {
     setRefresh((old) => !old);

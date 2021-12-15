@@ -53,6 +53,7 @@ function EditBookingModal(props) {
           if (res.data === "trip updated successfully") {
             onClose();
             props.refresh();
+            reset();
           }
         });
     }
