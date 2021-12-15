@@ -5,12 +5,12 @@ import { Box, Flex, Text, Image } from "@chakra-ui/react";
 import facebook from "./../../assets/facebook.png";
 import instagram from "./../../assets/instagram.png";
 import twitter from "./../../assets/twitter.png";
-import logo from "./../../assets/logo.png";
+import lawenLogo from "./../../assets/lawenLogo.png";
 
 function Summary() {
   return (
     <Box w="30%">
-      <Image src={logo} w={80} />
+      <Image src={lawenLogo} w={44} />
       <Text
         fontFamily="roboto"
         fontSize="sm"
