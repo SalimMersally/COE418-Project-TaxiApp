@@ -71,7 +71,7 @@ app.post("/api/Trip/add", (req, res) => {
   addTrip(req, res, db);
 });
 
-app.post("/api/Trip/update", (req, res) => {
+app.post("/api/Trip/edit", (req, res) => {
   updateTrip(req, res, db);
 });
 
