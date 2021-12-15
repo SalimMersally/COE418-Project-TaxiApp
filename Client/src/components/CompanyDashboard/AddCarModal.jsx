@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Modal,
   ModalOverlay,
@@ -16,12 +16,63 @@ import {
   Flex,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 //Images
 import add from "./../../assets/add.png";
 
-function AddCarModal() {
+function AddCarModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [company, setCompany] = useState("");
+  const [model, setModel] = useState("");
+  const [seats, setSeats] = useState("");
+  const [color, setColor] = useState("");
+  const [code, setCode] = useState("");
+  const [number, setNumber] = useState("");
+  const [packages, setPackages] = useState("");
+
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (
+      company === "" ||
+      model === "" ||
+      seats === "" ||
+      color === "" ||
+      code === "" ||
+      number === "" ||
+      packages === ""
+    ) {
+      setError("Please fill all values");
+    } else {
+      setError("");
+    }
+  }, [company, model, seats, color, code, number, packages]);
+
+  function submit() {
+    if (error === "") {
+      axios
+        .post("http://localhost:3001/api/company/addCar", {
+          manufacturingCompany: company,
+          model: model,
+          NBSeats: seats,
+          color: color,
+          licenseCode: code,
+          licenseNB: number,
+          companyID: props.companyID,
+          NBPackages: packages,
+        })
+        .then((res) => {
+          if (res.data === "Car added successfully") {
+            onClose();
+            props.refresh();
+          } else {
+            setError(res.data);
+          }
+        });
+    }
+  }
 
   return (
     <>
@@ -46,6 +97,14 @@ function AddCarModal() {
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
+            <Text
+              fontFamily="roboto"
+              fontSize="sm"
+              fontWeight="400"
+              color="red"
+            >
+              {error}
+            </Text>
             <Flex mb="2" justifyContent="space-between">
               <Text
                 fontSize="lg"
@@ -64,6 +123,7 @@ function AddCarModal() {
                 borderRadius="0"
                 borderWidth="0"
                 w="70%"
+                onChange={(e) => setCompany(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -84,6 +144,7 @@ function AddCarModal() {
                 borderRadius="0"
                 borderWidth="0"
                 w="70%"
+                onChange={(e) => setModel(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -105,6 +166,29 @@ function AddCarModal() {
                 borderWidth="0"
                 w="70%"
                 type="number"
+                onChange={(e) => setSeats(e.target.value)}
+              />
+            </Flex>
+            <Flex my="2" justifyContent="space-between">
+              <Text
+                fontSize="lg"
+                fontFamily="roboto"
+                color="black"
+                fontWeight="700"
+                lineHeight="1"
+                alignSelf="center"
+              >
+                Nb of Packages
+              </Text>
+              <Input
+                placeholder="Number of Packages"
+                size="sm"
+                bg="white"
+                borderRadius="0"
+                borderWidth="0"
+                w="70%"
+                type="number"
+                onChange={(e) => setPackages(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -125,6 +209,7 @@ function AddCarModal() {
                 borderRadius="0"
                 borderWidth="0"
                 w="70%"
+                onChange={(e) => setColor(e.target.value)}
               />
             </Flex>
             <Flex my="2" justifyContent="space-between">
@@ -147,6 +232,7 @@ function AddCarModal() {
                   borderRadius="0"
                   borderWidth="0"
                   w="40%"
+                  onChange={(e) => setCode(e.target.value)}
                 />
               </Flex>
               <Flex justifyContent="space-between" w="50%">
@@ -168,6 +254,7 @@ function AddCarModal() {
                   borderRadius="0"
                   borderWidth="0"
                   w="50%"
+                  onChange={(e) => setNumber(e.target.value)}
                 />
               </Flex>
             </Flex>
@@ -181,6 +268,7 @@ function AddCarModal() {
               type="submit"
               _hover={{ bg: "#252525", color: "#FFC000" }}
               _active={{ bg: "black" }}
+              onClick={submit}
             >
               Add
             </Button>

@@ -10,6 +10,7 @@ import AddCarModal from "./AddCarModal";
 function CarList() {
   const [cars, setCars] = useState([]);
   const [state] = useContext(AppContext);
+  const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     axios
@@ -19,7 +20,11 @@ function CarList() {
       .then((res) => {
         setCars(res.data);
       });
-  }, []);
+  }, [refresh]);
+
+  const ref = () => {
+    setRefresh((old) => !old);
+  };
 
   return (
     <Container maxW="container.lg" px="10" h="90vh" py="2" w="50%">
@@ -32,7 +37,7 @@ function CarList() {
         >
           Cars
         </Text>
-        <AddCarModal />
+        <AddCarModal refresh={ref} companyID={state.company[0].companyID} />
       </Flex>
       <hr className="info" my="2" />
       <Box overflowY="auto" h="85%" my="2">

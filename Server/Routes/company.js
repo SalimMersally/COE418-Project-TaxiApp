@@ -24,8 +24,6 @@ module.exports = {
       res.send(result);
     });
   },
-
-  //addCars, addDrivers
   addCar: (req, res, db) => {
     const manufacturingCompany = req.body.manufacturingCompany;
     const model = req.body.model;
@@ -33,29 +31,37 @@ module.exports = {
     const color = req.body.color;
     const licenseChar = req.body.licenseCode;
     const licenseNB = req.body.licenseNB;
-    const companyID = request.body.companyID;
-    const NBPackages = request.body.companyID;
-    const sqlInsert =
-      "INSERT INTO car (licenseChar, licenseNB, manifacturerCompany, model, color, nbOfSeats, nbOfPackages, companyID) VALUES (?,?,?,?,?)";
-    db.query(
-      sqlInsert,
-      [
-        licenseChar,
-        licenseNB,
-        manufacturingCompany,
-        model,
-        color,
-        NBSeats,
-        NBPackages,
-        companyID,
-      ],
-      (err, result) => {
-        console.log(err);
-        if (result !== null) {
-          res.send("Car added successfully");
-        }
+    const companyID = req.body.companyID;
+    const NBPackages = req.body.companyID;
+    const sqlInsert = "INSERT INTO car VALUES (?,?,?,?,?,?,?,?)";
+    const sqlSelect =
+      "SELECT * FROM car WHERE licenseChar = ? AND licenseNB = ?";
+    db.query(sqlSelect, [licenseChar, licenseNB], (err, result) => {
+      console.log(err);
+      if (result.length !== 0) {
+        res.send("Car license already exists");
+      } else {
+        db.query(
+          sqlInsert,
+          [
+            licenseChar,
+            licenseNB,
+            manufacturingCompany,
+            model,
+            color,
+            NBSeats,
+            NBPackages,
+            companyID,
+          ],
+          (err2, result2) => {
+            console.log(err2);
+            if (result2.length !== 0) {
+              res.send("Car added successfully");
+            }
+          }
+        );
       }
-    );
+    });
   },
   addDriver: (req, res, db) => {
     const driverLicenseNB = req.body.driverLicenseNB;
@@ -68,14 +74,7 @@ module.exports = {
       "INSERT INTO DRIVER (drivingLicenseNB, firstName, lastName, mobileNB) VALUES (?,?,?,?); INSERT INTO WORKFOR (drivingLicenseNB, companyID, dateFrom, dateTo) VALUES (?,?,CURRENT_DATE(),NULL)";
     db.query(
       sqlInsert,
-      [
-        driverLicenseNB,
-        firstName,
-        lastName,
-        mobileNB,
-        drivingLicenseNB,
-        companyID,
-      ],
+      [driverLicenseNB, firstName, lastName, mobileNB, companyID],
       (err, result) => {
         console.log(err);
         if (result !== null) {
