@@ -124,7 +124,7 @@ function BookingItem(props) {
           <SendFeedbackModal id={props.info.tripID} />
         ) : (
           <>
-            <EditBookingModal info={props.info} />
+            <EditBookingModal info={props.info} refresh={props.refresh} />
             <DeleteModal id={props.info.tripID} refresh={props.refresh} />
           </>
         )}

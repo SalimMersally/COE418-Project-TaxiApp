@@ -18,6 +18,7 @@ import {
   Select,
   Box,
 } from "@chakra-ui/react";
+import axios from "axios";
 
 //Images
 import editBlack from "./../../assets/editBlack.png";
@@ -25,68 +26,44 @@ import editBlack from "./../../assets/editBlack.png";
 function EditBookingModal(props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [fromCity, setFromCity] = useState(props.info.FCity);
-  const [fromBuidling, setFromBuidling] = useState(props.info.FBuilding);
-  const [fromStreet, setFromStreet] = useState(props.info.FStreet);
-  const [toCity, setToCity] = useState(props.info.TCity);
-  const [toBuidling, setToBuidling] = useState(props.info.TBuilding);
-  const [toStreet, setToStreet] = useState(props.info.TStreet);
   const [time, setTime] = useState(props.info.time);
   const [date, setDate] = useState(props.info.date.substring(0, 10));
-  const [luggages, setLuggages] = useState(props.info.numberOfPackages);
-  const [seats, setSeats] = useState(props.info.nbOfSeat);
   const [desc, setDesc] = useState(props.info.description);
 
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (
-      fromCity === "" ||
-      fromBuidling === "" ||
-      fromStreet === "" ||
-      toCity === "" ||
-      toStreet === "" ||
-      toBuidling === "" ||
-      time === "" ||
-      date === "" ||
-      luggages === "" ||
-      seats === "" ||
-      desc === ""
-    ) {
+    if (time === "" || date === "" || desc === "") {
       setError("Please fill all values");
     } else {
       setError("");
     }
-  }, [
-    fromCity,
-    fromBuidling,
-    fromStreet,
-    toCity,
-    toStreet,
-    toBuidling,
-    time,
-    date,
-    luggages,
-    seats,
-    desc,
-  ]);
+  }, [time, date, desc]);
 
-  function submit() {}
+  function submit() {
+    if (error === "") {
+      axios
+        .post("http://localhost:3001/api/Trip/edit", {
+          date: date,
+          time: time,
+          description: desc,
+          tripID: props.info.tripID,
+        })
+        .then((res) => {
+          if (res.data === "trip updated successfully") {
+            onClose();
+            props.refresh();
+          }
+        });
+    }
+  }
 
   // Current date
   const now = new Date();
 
   function reset() {
-    setFromCity(props.info.FCity);
-    setFromBuidling(props.info.FBuilding);
-    setFromStreet(props.info.FStreet);
-    setToCity(props.info.TCity);
-    setToBuidling(props.info.TBuilding);
-    setToStreet(props.info.TStreet);
     setTime(props.info.Time);
     setDate(props.info.Date.substring(0, 10));
-    setLuggages(props.info.numberOfPackages);
-    setSeats(props.info.nbOfSeat);
     setDesc(props.info.description);
   }
 
@@ -121,92 +98,6 @@ function EditBookingModal(props) {
             >
               {error}
             </Text>
-            <Flex mb="1" justifyContent="space-between">
-              <Text
-                fontSize="lg"
-                fontFamily="roboto"
-                color="black"
-                fontWeight="700"
-                lineHeight="1"
-                alignSelf="center"
-              >
-                From
-              </Text>
-              <Flex w="80%">
-                <Input
-                  placeholder="City"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  mr="1"
-                  value={fromCity}
-                  onChange={(e) => setFromCity(e.target.value)}
-                />
-                <Input
-                  placeholder="Street"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  mr="1"
-                  value={fromStreet}
-                  onChange={(e) => setFromStreet(e.target.value)}
-                />
-                <Input
-                  placeholder="Building"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  value={fromBuidling}
-                  onChange={(e) => setFromBuidling(e.target.value)}
-                />
-              </Flex>
-            </Flex>
-            <Flex my="1" justifyContent="space-between">
-              <Text
-                fontSize="lg"
-                fontFamily="roboto"
-                color="black"
-                fontWeight="700"
-                lineHeight="1"
-                alignSelf="center"
-              >
-                To
-              </Text>
-              <Flex w="80%">
-                <Input
-                  placeholder="City"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  mr="1"
-                  value={toCity}
-                  onChange={(e) => setToCity(e.target.value)}
-                />
-                <Input
-                  placeholder="Street"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  mr="1"
-                  value={toStreet}
-                  onChange={(e) => setToStreet(e.target.value)}
-                />
-                <Input
-                  placeholder="Building"
-                  size="sm"
-                  bg="white"
-                  borderRadius="0"
-                  borderWidth="0"
-                  value={toBuidling}
-                  onChange={(e) => setToBuidling(e.target.value)}
-                />
-              </Flex>
-            </Flex>
             <Flex my="4">
               <Flex w="50%" justifyContent="space-between">
                 <Text
@@ -257,57 +148,6 @@ function EditBookingModal(props) {
                 />
               </Flex>
             </Flex>
-            <Flex my="4">
-              <Flex w="50%" justifyContent="space-between">
-                <Text
-                  fontSize="lg"
-                  fontFamily="roboto"
-                  color="black"
-                  fontWeight="700"
-                  lineHeight="1"
-                  alignSelf="center"
-                >
-                  Seats
-                </Text>
-                <Input
-                  placeholder="Number of Seats"
-                  size="sm"
-                  bg="white"
-                  w="60%"
-                  borderRadius="0"
-                  borderWidth="0"
-                  type="number"
-                  min="1"
-                  max="7"
-                  value={seats}
-                  onChange={(e) => setSeats(e.target.value)}
-                />
-              </Flex>
-              <Flex w="50%" justifyContent="space-between">
-                <Text
-                  fontSize="lg"
-                  fontFamily="roboto"
-                  color="black"
-                  fontWeight="700"
-                  lineHeight="1"
-                  alignSelf="center"
-                  pl="4"
-                >
-                  Luggages
-                </Text>
-                <Input
-                  placeholder="Number of Luggages"
-                  size="sm"
-                  bg="white"
-                  w="60%"
-                  borderRadius="0"
-                  borderWidth="0"
-                  type="number"
-                  value={luggages}
-                  onChange={(e) => setLuggages(e.target.value)}
-                />
-              </Flex>
-            </Flex>
             <Flex mt="4" justifyContent="space-between">
               <Text
                 fontSize="lg"
@@ -341,6 +181,7 @@ function EditBookingModal(props) {
               type="submit"
               _hover={{ bg: "#252525", color: "#FFC000" }}
               _active={{ bg: "black" }}
+              onClick={submit}
             >
               Edit
             </Button>

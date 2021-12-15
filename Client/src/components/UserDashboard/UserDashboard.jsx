@@ -15,7 +15,6 @@ function UserDashboard() {
   useEffect(() => {
     if (!state.isLoged) {
       navigate("/login");
-      console.log(state.isLoged);
     }
   }, [state]);
 
