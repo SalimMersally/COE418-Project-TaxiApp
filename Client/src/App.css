@@ -21,3 +21,8 @@ hr.infoPoints {
 a:hover {
   color: #ffc000;
 }
+
+svg {
+  width: inherit;
+  height: inherit;
+}
