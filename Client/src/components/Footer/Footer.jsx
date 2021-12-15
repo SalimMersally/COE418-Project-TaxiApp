@@ -4,7 +4,6 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 
 // Components
 import Summary from "./Summary";
-import Links from "./Links";
 import Info from "./Info";
 
 function Footer() {
@@ -18,7 +17,6 @@ function Footer() {
         <Box bg="black" px="20" py="6">
           <Flex justifyContent="space-between">
             <Summary />
-            <Links />
             <Info />
           </Flex>
         </Box>

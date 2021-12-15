@@ -1,23 +1,70 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, Flex, Image, Text, Tooltip } from "@chakra-ui/react";
+import axios from "axios";
 
 // Images
 import editBlack from "./../../assets/editBlack.png";
 
 // Components
-import DeleteModal from "./DeleteModal";
+import EditBookingModal from "./EditBookingModal";
 import SeeFeedbackModal from "./SeeFeedbackModal";
 
 function BookingItem(props) {
-  const from = props.info.from;
-  const to = props.info.to;
+  const from =
+    props.info.FCity + " " + props.info.FStreet + " " + props.info.FBuilding;
+  const to =
+    props.info.TCity + " " + props.info.TStreet + " " + props.info.TBuilding;
   const time = props.info.time;
-  const compName = props.info.compName;
-  const driverName = props.info.driverName;
-  const carModel = props.info.carModel;
-  const compNb = props.info.compNb;
-  const driverNb = props.info.driverNb;
-  const carNb = props.info.carNb;
+  const date = props.info.date.substring(0, 10);
+  const clientName = props.info.firstname + " " + props.info.lastName;
+  const [driverName, setDriverName] = useState("");
+  const [carModel, setCarModel] = useState("");
+  const [carNb, setCarNb] = useState("");
+  const numberOfPackages = props.info.numberOfPackages;
+  const nbOfSeat = props.info.nbOfSeat;
+  const clientNb = props.info.mobileNB;
+  const desc = props.info.description;
+
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/trip/current/car", {
+        params: {
+          tripID: props.info.tripID,
+        },
+      })
+      .then((res) => {
+        if (res.data.length !== 0) {
+          setCarModel(
+            res.data[0].manifacturerCompany +
+              " " +
+              res.data[0].model +
+              " " +
+              res.data[0].color
+          );
+          setCarNb(res.data[0].licenseChar + " " + res.data[0].licenseNB);
+        }
+      });
+  }, [props.tripID, refresh]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/trip/current/driver", {
+        params: {
+          tripID: props.info.tripID,
+        },
+      })
+      .then((res) => {
+        if (res.data.length !== 0) {
+          setDriverName(res.data[0].firstName + " " + res.data[0].lastName);
+        }
+      });
+  }, [props.tripID, refresh]);
+
+  const ref = () => {
+    setRefresh((old) => !old);
+  };
 
   let sx;
   if (props.isHistory) {
@@ -27,7 +74,7 @@ function BookingItem(props) {
   }
 
   return (
-    <Flex
+    <Box
       w="100%"
       justifyContent="space-between"
       textAlign="left"
@@ -37,52 +84,58 @@ function BookingItem(props) {
         backgroundColor: sx,
       }}
     >
-      <Box w="30%">
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          From: {from}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          To: {to}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Time: {time}
-        </Text>
-      </Box>
-      <Box w="30%">
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Company Name: {compName}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Car Model: {carModel}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Driver Name: {driverName}
-        </Text>
-      </Box>
-      <Box w="30%">
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Company Nb: {compNb}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Car Nb: {carNb}
-        </Text>
-        <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          Driver Nb: {driverNb}
-        </Text>
-      </Box>
-      <Flex w="10%" justifyContent="flex-end" alignItems="center">
-        {props.isHistory ? (
-          <SeeFeedbackModal />
-        ) : (
-          <>
-            <Tooltip hasArrow label="Edit" bg="gray.400">
-              <Image src={editBlack} w="5" h="5" mx="4" />
-            </Tooltip>
-            <DeleteModal />
-          </>
-        )}
+      <Flex>
+        <Box w="30%">
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            From: {from}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            To: {to}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Time: {time}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Date: {date}
+          </Text>
+        </Box>
+        <Box w="30%">
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Client Name: {clientName}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Car Model: {carModel}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Driver Name: {driverName}
+          </Text>
+        </Box>
+        <Box w="30%">
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            nbOfSeat: {nbOfSeat}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Luggaes: {numberOfPackages}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Car Nb: {carNb}
+          </Text>
+          <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+            Client Nb: {clientNb}
+          </Text>
+        </Box>
+        <Flex w="10%" justifyContent="flex-end" alignItems="center">
+          {props.isHistory ? (
+            <SeeFeedbackModal />
+          ) : (
+            <EditBookingModal refresh={ref} tripID={props.info.tripID} />
+          )}
+        </Flex>
       </Flex>
-    </Flex>
+      <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
+        Description: {desc}
+      </Text>
+    </Box>
   );
 }
 

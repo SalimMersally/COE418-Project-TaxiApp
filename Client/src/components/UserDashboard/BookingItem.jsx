@@ -42,7 +42,7 @@ function BookingItem(props) {
           setCarNb(res.data[0].licenseChar + " " + res.data[0].licenseNB);
         }
       });
-  }, [props.tripID]);
+  }, [props.tripID, props.refreshVariable]);
 
   useEffect(() => {
     axios
@@ -57,7 +57,7 @@ function BookingItem(props) {
           setDriverNb(res.data[0].mobileNB);
         }
       });
-  }, [props.tripID]);
+  }, [props.tripID, props.refreshVariable]);
 
   let sx;
   if (props.isHistory) {

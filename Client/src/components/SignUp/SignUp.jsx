@@ -20,7 +20,7 @@ function SignUp() {
               px="1"
               color="yellow.400"
             >
-              <span>SIGN UP</span> as a driver
+              <span>SIGN UP</span> as a company
             </Text>
             <ArrowForwardIcon w={8} h={8} color="yellow.400" pt="1" />
           </Flex>

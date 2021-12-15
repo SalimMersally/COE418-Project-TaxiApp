@@ -5,8 +5,6 @@ import { AppContext } from "./StateProvider";
 
 // Components
 import Home from "./components/Home";
-import About from "./components/About";
-import Contact from "./components/Contact";
 import UserDashboard from "./components/UserDashboard";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -34,8 +32,6 @@ function App() {
             path="/dashboard"
             element={isCompany ? <CompanyDashboard /> : <UserDashboard />}
           />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
           <Route path="/LogIn" element={<LogIn />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signUp/Company" element={<SignUpComp />} />

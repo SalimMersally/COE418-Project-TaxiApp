@@ -63,7 +63,7 @@ function DeleteModal(props) {
               fontWeight="700"
               textAlign="center"
             >
-              Are you sure you want to delete this Driver?
+              Is this driver not working for you anymore?
             </Text>
           </ModalHeader>
           <ModalFooter>
@@ -79,7 +79,7 @@ function DeleteModal(props) {
                 mr="4"
                 onClick={submit}
               >
-                Delete
+                Yes
               </Button>
               <Button
                 borderRadius="0"
@@ -91,7 +91,7 @@ function DeleteModal(props) {
                 _active={{ bg: "black" }}
                 onClick={onClose}
               >
-                Cancel
+                No
               </Button>
             </Flex>
           </ModalFooter>

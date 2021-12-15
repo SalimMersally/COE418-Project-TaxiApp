@@ -5,13 +5,11 @@ import { AppContext } from "../../StateProvider";
 
 // Components
 import BookingItem from "./BookingItem";
-import BookingModal from "./BookingModal";
-import HistoryBookingItem from "./HistoryBookingItem";
 
 // Images
 import history from "./../../assets/history.png";
 
-function BookingsList() {
+function HistoryBookingsList() {
   const [isHistory, setIsHistory] = useState(false);
   const [currentList, setCurrentList] = useState([]);
   const [historyList, setHistoryList] = useState([]);
@@ -24,9 +22,9 @@ function BookingsList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/trip/current", {
+      .get("http://localhost:3001/api/trip-company/current", {
         params: {
-          clientID: state.user[0].clientID,
+          companyID: state.company[0].companyID,
         },
       })
       .then((res) => {
@@ -37,9 +35,9 @@ function BookingsList() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/trip/past", {
+      .get("http://localhost:3001/api/trip-company/history", {
         params: {
-          clientID: state.user[0].clientID,
+          companyID: state.company[0].companyID,
         },
       })
       .then((res) => {
@@ -64,27 +62,14 @@ function BookingsList() {
           Bookings
         </Text>
         <Flex alignItems="center">
-          <Flex alignItems="center" pr="4">
-            <Text
-              fontFamily="roboto"
-              color="yellow.400"
-              fontsize="lg"
-              fontweight="400"
-              as="button"
-              onClick={ref}
-            >
-              refresh
-            </Text>
-          </Flex>
           <Tooltip hasArrow label="History" bg="gray.400">
             <Box
               as="button"
               onClick={() => setIsHistory((current) => !current)}
             >
-              <Image src={history} w="8" h="8" mx="4" />
+              <Image src={history} w="8" h="8" />
             </Box>
           </Tooltip>
-          <BookingModal refresh={ref} />
         </Flex>
       </Flex>
       <hr className="info" my="2" />
@@ -96,11 +81,12 @@ function BookingsList() {
                 opacity = 0.5;
               }
               return (
-                <HistoryBookingItem
+                <BookingItem
                   info={item}
                   key={item.tripID}
                   isHistory={true}
                   opacity={opacity}
+                  ref={ref}
                 />
               );
             })
@@ -116,7 +102,6 @@ function BookingsList() {
                   isHistory={false}
                   opacity={opacity}
                   refresh={ref}
-                  refreshVariable={refresh}
                 />
               );
             })}
@@ -125,4 +110,4 @@ function BookingsList() {
   );
 }
 
-export default BookingsList;
+export default HistoryBookingsList;

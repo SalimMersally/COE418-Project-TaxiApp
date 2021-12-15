@@ -31,6 +31,11 @@ const {
   viewFeedback,
   deleteTrip,
 } = require("./routes/trip");
+const {
+  getCurrentTrips,
+  getHistoryTrips,
+  setDriverCARForTrip,
+} = require("./Routes/trip-company");
 
 const db = mysql.createConnection({
   host: "localhost",
@@ -92,6 +97,10 @@ app.post("/api/company/addDriver", (req, res) => {
 app.post("/api/company/DriverLeft", (req, res) => {
   driverLeftWork(req, res, db);
 });
+
+app.post("/api/trip-company/setDriverCarForTrip", (req, res) => {
+  setDriverCARForTrip(req, res, db);
+});
 // Get Methods
 
 app.get("/api/user/login", (req, res) => {
@@ -141,6 +150,14 @@ app.get("/api/Trip/viewFeedback", (req, res) => {
 });
 app.get("/api/company/rank", (req, res) => {
   rank(req, res, db);
+});
+
+app.get("/api/trip-company/current", (req, res) => {
+  getCurrentTrips(req, res, db);
+});
+
+app.get("/api/trip-company/history", (req, res) => {
+  getHistoryTrips(req, res, db);
 });
 
 // Start Server

@@ -50,12 +50,6 @@ function Navbar() {
           <Button mr="2">
             <Link to="/">HOME</Link>
           </Button>
-          <Button as="a" href="/about" mr="2">
-            <Link to="/about">ABOUT</Link>
-          </Button>
-          <Button as="a" href="/contact" mr="2">
-            <Link to="/contact">CONTACT</Link>
-          </Button>
           {name ? (
             <Flex>
               <Text
