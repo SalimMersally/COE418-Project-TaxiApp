@@ -10,9 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { AppContext } from "../../StateProvider";
 import { useNavigate, Link } from "react-router-dom";
-import { ReactSVG } from "react-svg";
-import { Icon, createIcon } from "@chakra-ui/react";
-
 // Images
 import userProfile from "./../../assets/userProfile.png";
 import companyLogo from "./../../assets/companyLogo.jpeg";
@@ -39,8 +36,8 @@ function Navbar() {
 
   return (
     <Flex as="header" zIndex="9999" w="100%" bg="black" pl="10">
-      <Center>
-        <Image src={lawenLogo} w={36} />
+      <Center pb="4">
+        <Image src={lawenLogo} w={32} />
       </Center>
       <Spacer />
       <Flex pr="4" py="4">
