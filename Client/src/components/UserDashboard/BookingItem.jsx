@@ -13,7 +13,7 @@ function BookingItem(props) {
   const to =
     props.info.TCity + " " + props.info.TBuilding + " " + props.info.TStreet;
   const time = props.info.time;
-  const Date = props.info.date.substring(0, 10);
+  const dateObj = new Date(props.info.date);
   const compName = props.info.company;
   const compNb = props.info.CNumber;
   const [driverName, setDriverName] = useState("");
@@ -22,6 +22,13 @@ function BookingItem(props) {
   const [carNb, setCarNb] = useState("");
   const luggages = props.info.numberOfPackages;
   const seats = props.info.nbOfSeat;
+
+  const date =
+    dateObj.getFullYear() +
+    "-" +
+    (dateObj.getMonth() + 1) +
+    "-" +
+    dateObj.getDate();
 
   useEffect(() => {
     axios
@@ -88,7 +95,7 @@ function BookingItem(props) {
           <b>Time:</b> {time}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          <b>Date:</b> {Date}
+          <b>Date:</b> {date}
         </Text>
       </Box>
       <Box w="30%">

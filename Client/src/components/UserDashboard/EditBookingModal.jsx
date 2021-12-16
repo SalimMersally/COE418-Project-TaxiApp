@@ -53,7 +53,6 @@ function EditBookingModal(props) {
           if (res.data === "trip updated successfully") {
             onClose();
             props.refresh();
-            reset();
           }
         });
     }
@@ -61,12 +60,6 @@ function EditBookingModal(props) {
 
   // Current date
   const now = new Date();
-
-  function reset() {
-    setTime(props.info.Time);
-    setDate(props.info.Date.substring(0, 10));
-    setDesc(props.info.description);
-  }
 
   return (
     <>
@@ -89,7 +82,7 @@ function EditBookingModal(props) {
               Book a new trip
             </Text>
           </ModalHeader>
-          <ModalCloseButton onClick={reset} />
+          <ModalCloseButton />
           <ModalBody>
             <Text
               fontFamily="roboto"

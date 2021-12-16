@@ -12,7 +12,7 @@ function HistoryBookingItem(props) {
   const to =
     props.info.tCity + " " + props.info.tBuilding + "" + props.info.tStreet;
   const time = props.info.Time;
-  const Date = props.info.Date.substring(0, 9);
+  const dateObj = new Date(props.info.Date);
   const compName = props.info.company;
   const driverName = props.info.firstName + " " + props.info.lastName;
   const carModel = props.info.manifacturerCompany + " " + props.info.model;
@@ -22,6 +22,13 @@ function HistoryBookingItem(props) {
     props.info.licenseChar + "" + props.info.licenseNB + " " + props.info.color;
   const luggages = props.info.numberOfPackages;
   const seats = props.info.nbOfSeat;
+
+  const date =
+    dateObj.getFullYear() +
+    "-" +
+    (dateObj.getMonth() + 1) +
+    "-" +
+    dateObj.getDate();
 
   let sx;
   if (props.isHistory) {
@@ -52,7 +59,7 @@ function HistoryBookingItem(props) {
           <b>Time:</b> {time}
         </Text>
         <Text fontFamily="roboto" fontWeight="400" fontSize="sm">
-          <b>Date:</b> {Date}
+          <b>Date:</b> {date}
         </Text>
       </Box>
       <Box w="30%">

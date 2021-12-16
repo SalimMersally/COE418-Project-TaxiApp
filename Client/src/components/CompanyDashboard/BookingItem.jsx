@@ -15,7 +15,7 @@ function BookingItem(props) {
   const to =
     props.info.TCity + " " + props.info.TStreet + " " + props.info.TBuilding;
   const time = props.info.time;
-  const date = props.info.date.substring(0, 10);
+  const dateObj = new Date(props.info.date);
   const clientName = props.info.firstname + " " + props.info.lastName;
   const [driverName, setDriverName] = useState("");
   const [carModel, setCarModel] = useState("");
@@ -24,6 +24,13 @@ function BookingItem(props) {
   const nbOfSeat = props.info.nbOfSeat;
   const clientNb = props.info.mobileNB;
   const desc = props.info.description;
+
+  const date =
+    dateObj.getFullYear() +
+    "-" +
+    (dateObj.getMonth() + 1) +
+    "-" +
+    dateObj.getDate();
 
   const [refresh, setRefresh] = useState(false);
 
